@@ -75,17 +75,4 @@ public class Usuario {
         this.rol = rol;
     }
 
-    @Override
-    public String toString() {
-        final StringBuilder sb = new StringBuilder("Usuario{");
-        sb.append("nombre='").append(nombre).append('\'');
-        sb.append(", apellido='").append(apellido).append('\'');
-        sb.append(", email='").append(email).append('\'');
-        sb.append(", telefono='").append(telefono).append('\'');
-        sb.append(", nombre_usuario='").append(nombre_usuario).append('\'');
-        sb.append(", password='").append(password).append('\'');
-        sb.append(", rol='").append(rol).append('\'');
-        sb.append('}');
-        return sb.toString();
-    }
 }

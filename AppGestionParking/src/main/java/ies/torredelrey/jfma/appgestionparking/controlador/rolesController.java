@@ -8,8 +8,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -29,9 +32,10 @@ public class rolesController {
     private Button btnLoginCancelar;
 
     @FXML
-    private Button btnLoginIniciar;
+    private Label lblError;
+
     @FXML
-    private TextField txtContrasena;
+    private PasswordField txtContrasena;
 
     @FXML
     private TextField txtUser;
@@ -61,12 +65,18 @@ public class rolesController {
         String contrasena = txtContrasena.getText();
 
         if (user.isEmpty() || contrasena.isEmpty()) {
-            System.out.println("Por favor, ingrese usuario y contraseña.");
+            lblError.setTextFill(Color.RED);
+            lblError.setText("Por favor, ingrese usuario y contraseña.");
             return;
         }
 
         Usuario nuevo = UsuarioDao.verificacion_usuario(user,contrasena);
-        System.out.println(nuevo);
+        if(nuevo == null){
+            lblError.setTextFill(Color.RED);
+            lblError.setText("Usuario o contraseña incorrectas");
+            return;
+        }
+
         if(nuevo != null){
             String rol = nuevo.getRol(); // Obtener el rol del usuario
 
@@ -104,6 +114,7 @@ public class rolesController {
             Stage stage = (Stage) rolAdmin.getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.setTitle("Iniciar Sesión");
+            stage.setResizable(false);
             stage.setOnCloseRequest(cerrar -> {
                 cerrar.consume();
 

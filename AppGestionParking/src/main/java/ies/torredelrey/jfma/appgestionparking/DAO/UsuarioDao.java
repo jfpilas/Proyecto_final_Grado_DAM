@@ -28,6 +28,7 @@ public class UsuarioDao {
 
 
                 //Guardo en resultado lo que me devuelve la base de datos
+
                 ResultSet resultado = user.executeQuery();
                 if(resultado.next()){
                     return new Usuario(resultado.getString("Nombre"),
@@ -39,11 +40,43 @@ public class UsuarioDao {
                             resultado.getString("Nombre_usuario"));
                 }
             } catch (SQLException e) {
+
                 System.out.println("Error " + e.getMessage());
 
             }
         }
 
         return null;
+    }
+
+    public boolean guardarUsuario(Usuario usu){
+
+        Connection con = Conexion.conectar();
+        if(Conexion.conectar() != null){
+
+            String insertar = "INSERT INTO usuario (Nombre,Apellido,Email,Telefono,Contraseña,Rol,Nombre_usuario) VALUES (?,?,?,?,?,?,?)";
+
+            try (PreparedStatement stmt = con.prepareStatement(insertar)) {
+
+                // Establecer los parámetros de la consulta
+                stmt.setString(1, usu.getNombre());
+                stmt.setString(2, usu.getApellido());
+                stmt.setString(3, usu.getEmail());
+                stmt.setString(4, usu.getTelefono());
+                stmt.setString(5, usu.getPassword());
+                stmt.setString(6, usu.getRol());
+                stmt.setString(7, usu.getNombre_usuario());
+
+                // Ejecutar la inserción
+                int rowsAffected = stmt.executeUpdate();
+                return rowsAffected > 0;  // Si se insertaron filas correctamente
+            } catch (SQLException e) {
+                System.out.println("Error al guardar el cliente: " + e.getMessage());
+                return false;
+            }
+        }
+
+        return true;
+
     }
 }
