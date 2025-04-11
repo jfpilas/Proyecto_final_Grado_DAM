@@ -1,15 +1,19 @@
 package ies.torredelrey.jfma.appgestionparking.vista;
 
+import ies.torredelrey.jfma.appgestionparking.DAO.CocheDao;
+import ies.torredelrey.jfma.appgestionparking.modelo.Coche;
 import ies.torredelrey.jfma.appgestionparking.util.Rutas;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+
 
 public class GestorParking extends Application {
     @Override
@@ -19,6 +23,7 @@ public class GestorParking extends Application {
         stage.setTitle("Gestor de Parking");
         stage.setScene(scene);
         stage.show();
+
     }
 
     public static void llenarCombo(ComboBox<String> llenarcombo, ObservableList<String> infoCombo){

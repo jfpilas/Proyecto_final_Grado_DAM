@@ -9,4 +9,6 @@ module ies.torredelrey.jfma.appgestionparking {
     opens ies.torredelrey.jfma.appgestionparking.vista to javafx.fxml;
     exports ies.torredelrey.jfma.appgestionparking.controlador;
     opens ies.torredelrey.jfma.appgestionparking.controlador to javafx.fxml;
+    exports ies.torredelrey.jfma.appgestionparking.modelo;
+    opens ies.torredelrey.jfma.appgestionparking.modelo to javafx.fxml;
 }

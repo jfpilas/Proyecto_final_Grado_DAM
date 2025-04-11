@@ -7,6 +7,8 @@ public class Rutas {
     public static String LOGIN = "/ies/torredelrey/jfma/appgestionparking/login.fxml";
     public static String ADDCLIENTES = "/ies/torredelrey/jfma/appgestionparking/AddClientes.fxml";
     public static String ADDUSUARIOS = "/ies/torredelrey/jfma/appgestionparking/AddUsuario.fxml";
+    public static String ADDCOCHES = "/ies/torredelrey/jfma/appgestionparking/addCoches.fxml";
+    public static String PARKING = "/ies/torredelrey/jfma/appgestionparking/parking.fxml";
 
 
 }

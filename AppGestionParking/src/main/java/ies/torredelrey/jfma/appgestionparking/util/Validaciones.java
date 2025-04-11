@@ -26,12 +26,14 @@ public class Validaciones {
     }
 
     // Método para validar Teléfono (solo números, mínimo 7 y máximo 15 dígitos)
+
     public static boolean validarTelefono(String telefono) {
-        // Verifica que el teléfono contenga solo números y tenga entre 7 y 15 dígitos
+
         return telefono != null && telefono.matches("\\d{7,15}");
     }
 
     // Método para validar Fecha de Nacimiento (no debe ser una fecha futura)
+
     public static boolean validarFechaNacimiento(LocalDate fecha) {
         if (fecha == null) {
             return false; // La fecha no debe ser nula
@@ -42,7 +44,7 @@ public class Validaciones {
             return false;
         }
 
-        // También podríamos verificar si el usuario tiene una edad mínima (por ejemplo, 18 años)
+        // verificar si el usuario tiene una edad mínima (por ejemplo, 18 años)
         LocalDate fechaMinima = LocalDate.now().minusYears(18);
         if (fecha.isAfter(fechaMinima)) {
             return false;

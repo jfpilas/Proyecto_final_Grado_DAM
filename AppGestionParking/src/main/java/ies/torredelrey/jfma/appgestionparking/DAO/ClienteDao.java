@@ -2,9 +2,14 @@ package ies.torredelrey.jfma.appgestionparking.DAO;
 
 import ies.torredelrey.jfma.appgestionparking.conexionBBDD.Conexion;
 import ies.torredelrey.jfma.appgestionparking.modelo.Cliente;
+import ies.torredelrey.jfma.appgestionparking.modelo.Usuario;
+import ies.torredelrey.jfma.appgestionparking.vista.GestorParking;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -38,4 +43,6 @@ public class ClienteDao {
 
         return true;
     }
+
+
 }

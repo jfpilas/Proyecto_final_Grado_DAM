@@ -10,6 +10,42 @@ public class Cliente {
     private String dni;
     private LocalDate fecha;
     private String direccion;
+    private int idCliente;
+
+
+
+    public Cliente(int idCliente ,String direccion, String nombre, String apellido, String dni, LocalDate fecha, String email, String telefono) {
+        this.idCliente = idCliente;
+        this.direccion = direccion;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.fecha = fecha;
+        this.email = email;
+        this.telefono = telefono;
+
+
+    }
+
+    public Cliente(String direccion, String nombre, String apellido, String dni, LocalDate fecha, String email, String telefono) {
+        this.idCliente = getIdCliente();
+        this.direccion = direccion;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.fecha = fecha;
+        this.email = email;
+        this.telefono = telefono;
+
+    }
+
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
+    }
+
+    public int getIdCliente() {
+        return idCliente;
+    }
 
     public String getNombre() {
         return nombre;
@@ -67,15 +103,18 @@ public class Cliente {
         this.direccion = direccion;
     }
 
-    public Cliente(String direccion, String nombre, String apellido, String dni, LocalDate fecha, String email, String telefono) {
-        this.direccion = direccion;
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.dni = dni;
-        this.fecha = fecha;
-        this.email = email;
-        this.telefono = telefono;
-
-
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Cliente{");
+        sb.append("nombre='").append(nombre).append('\'');
+        sb.append(", apellido='").append(apellido).append('\'');
+        sb.append(", email='").append(email).append('\'');
+        sb.append(", telefono='").append(telefono).append('\'');
+        sb.append(", dni='").append(dni).append('\'');
+        sb.append(", fecha=").append(fecha);
+        sb.append(", direccion='").append(direccion).append('\'');
+        sb.append(", idCliente=").append(idCliente);
+        sb.append('}');
+        return sb.toString();
     }
 }

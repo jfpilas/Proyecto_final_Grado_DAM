@@ -53,8 +53,15 @@ public class menuController {
     }
 
     @FXML
-    void onClickParking(ActionEvent event) {
+    void onClickParking(ActionEvent event) throws IOException {
+        AnchorPane panel = FXMLLoader.load(GestorParking.class.getResource(Rutas.PARKING));
+        Scene nuevaEscena = new Scene(panel);
 
+        Stage stage = new Stage();
+        stage.setTitle("Parking");
+        stage.setScene(nuevaEscena);
+        stage.show();
+        System.out.println("Estoy entrando en parking");
     }
 
 

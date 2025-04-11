@@ -151,7 +151,8 @@ public class usuarioController {
 
     }
 
-    public void listarRoles(Event event) {
+    @FXML
+    private void listarRoles(Event event) {
         llenarCombo(cbxRol,rolesList);
     }
 }

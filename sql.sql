@@ -23,7 +23,7 @@ CREATE TABLE cliente (
     Direccion VARCHAR(50) NOT NULL,
     Nombre VARCHAR(50) NOT NULL,
     Apellido VARCHAR(50) NOT NULL,
-    Dni VARCHAR(15) NOT NULL,
+    Dni VARCHAR(15) UNIQUE NOT NULL,
     Fecha_Nacimiento DATE NOT NULL,
     Email VARCHAR(100) UNIQUE NOT NULL,
     Telefono VARCHAR(15) NOT NULL
@@ -113,3 +113,16 @@ CREATE TABLE reporte (
 
 
 INSERT INTO usuario (Nombre,Apellido ,Email,Telefono,Contraseña ,Rol,Nombre_usuario) VALUES("Juanfran","Marque","asdasdas@gmail.com","6543216789","1234","Administrador","jfpilas");
+INSERT INTO plaza (Numero_Plaza, Tipo, Estado, Tarifa) VALUES
+('P001', 'Normal', 'Libre', 5.00),
+('P002', 'Normal', 'Libre', 5.00),
+('P003', 'VIP', 'Ocupada', 10.00),
+('P004', 'VIP', 'Libre', 10.00),
+('P005', 'Carga eléctrica', 'Libre', 8.00),
+('P006', 'Carga eléctrica', 'Ocupada', 8.00),
+('P007', 'Normal', 'Libre', 5.00),
+('P008', 'Normal', 'Libre', 5.00),
+('P009', 'VIP', 'Reservada', 10.00),
+('P010', 'VIP', 'Libre', 10.00),
+('P011', 'Carga eléctrica', 'Libre', 8.00),
+('P012', 'Carga eléctrica', 'Libre', 8.00);
