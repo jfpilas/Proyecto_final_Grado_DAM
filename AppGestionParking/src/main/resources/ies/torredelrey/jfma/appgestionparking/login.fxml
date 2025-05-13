@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="392.0" prefWidth="322.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ies.torredelrey.jfma.appgestionparking.controlador.rolesController">
+<AnchorPane prefHeight="392.0" prefWidth="322.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ies.torredelrey.jfma.appgestionparking.controlador.loginController">
    <children>
       <Label alignment="TOP_CENTER" layoutX="99.0" layoutY="56.0" text="Iniciar Sesión">
          <font>

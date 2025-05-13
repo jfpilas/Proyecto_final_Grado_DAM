@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="$CONTROLLER_NAME$"
-            prefHeight="400.0" prefWidth="600.0" >
 
+<AnchorPane prefHeight="248.0" prefWidth="357.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ies.torredelrey.jfma.appgestionparking.controlador.plazaController">
+   <children>
+      <Label layoutX="43.0" layoutY="40.0" text="Cliente:" />
+      <TextField fx:id="txtCliente" layoutX="145.0" layoutY="36.0" />
+      <Label layoutX="43.0" layoutY="91.0" text="Matrícula:" />
+      <TextField fx:id="txtMatricula" layoutX="145.0" layoutY="87.0" />
+      <Label layoutX="43.0" layoutY="143.0" text="Fecha de entrada:" />
+      <TextField fx:id="txtFechaE" layoutX="145.0" layoutY="139.0" />
+      <Label layoutX="43.0" layoutY="188.0" text="Fecha de salida:" />
+      <TextField fx:id="txtFechaS" layoutX="145.0" layoutY="184.0" />
+   </children>
 </AnchorPane>

@@ -44,5 +44,20 @@ public class ClienteDao {
         return true;
     }
 
+    public static String obtenerNombreClientePorId(int idCliente) {
+        String consulta = "SELECT Nombre FROM cliente WHERE ID_Cliente = ?";
+        try (Connection con = Conexion.conectar();
+             PreparedStatement stmt = con.prepareStatement(consulta)) {
+            stmt.setInt(1, idCliente);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("Nombre");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 }

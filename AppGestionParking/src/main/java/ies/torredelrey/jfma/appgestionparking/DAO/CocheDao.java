@@ -12,11 +12,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class CocheDao {
-    public static ObservableList<Coche> listarCochesCliente(int idCliente){
+    public static ObservableList<Coche> listarCochesCliente(int idCliente) {
 
         ObservableList<Coche> listaCoches = FXCollections.observableArrayList();
         Connection con = Conexion.conectar();
-        if(Conexion.conectar() != null){
+        if (Conexion.conectar() != null) {
 
             //Hago la consulta
             String consulta = "SELECT Matricula,Marca,Modelo,Color,Tipo FROM coche WHERE ID_Cliente = ? ";
@@ -27,13 +27,11 @@ public class CocheDao {
                 coche.setInt(1, idCliente);
 
 
-
-
                 //Guardo en resultado lo que me devuelve la base de datos
 
                 ResultSet resultado = coche.executeQuery();
-                while(resultado.next()){
-                    Coche nuevoCoche= new Coche(idCliente,
+                while (resultado.next()) {
+                    Coche nuevoCoche = new Coche(idCliente,
                             resultado.getString("Matricula"),
                             resultado.getString("Marca"),
                             resultado.getString("Modelo"),
@@ -50,5 +48,21 @@ public class CocheDao {
         }
 
         return listaCoches;
+    }
+
+    public static String obtenerMatriculaCochePorId(int idCoche) {
+        String consulta = "SELECT Matricula FROM coche WHERE ID_Coche = ?";
+        try (Connection con = Conexion.conectar();
+             PreparedStatement stmt = con.prepareStatement(consulta)) {
+            stmt.setInt(1, idCoche);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("Matricula");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+
     }
 }

@@ -74,4 +74,18 @@ public class Validaciones {
         // Retorna true si la contraseña es válida
         return matcher.matches();
     }
+
+    public static boolean validarMatricula(String matricula) {
+        if (matricula == null) return false;
+
+        String matriculaMayus = matricula.toUpperCase();
+
+        String formatoModerno = "^[0-9]{4}[ -]?[BCDFGHJKLMNPRSTVWXYZ]{3}$";
+        String formatoAntiguo = "^[A-Z]{1,2}[- ]?[0-9]{4}[- ]?[A-Z]{0,2}$";
+        String formatoExtranjero = "^[A-Z0-9]{1,4}[- ]?[A-Z0-9]{1,4}[- ]?[A-Z0-9]{1,4}$";
+
+        return matriculaMayus.matches(formatoModerno)
+                || matriculaMayus.matches(formatoAntiguo)
+                || matriculaMayus.matches(formatoExtranjero);
+    }
 }

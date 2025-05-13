@@ -1,4 +1,5 @@
 package ies.torredelrey.jfma.appgestionparking.controlador;
+import ies.torredelrey.jfma.appgestionparking.util.FuncionesReutilizables;
 import ies.torredelrey.jfma.appgestionparking.util.Rutas;
 import ies.torredelrey.jfma.appgestionparking.vista.GestorParking;
 import javafx.event.ActionEvent;
@@ -30,6 +31,8 @@ public class menuController {
     @FXML
     private MenuItem mniSalir;
 
+    @FXML
+    private MenuItem mniCambiaRol;
 
 
 
@@ -54,38 +57,23 @@ public class menuController {
 
     @FXML
     void onClickParking(ActionEvent event) throws IOException {
-        AnchorPane panel = FXMLLoader.load(GestorParking.class.getResource(Rutas.PARKING));
-        Scene nuevaEscena = new Scene(panel);
+        FXMLLoader loader = new FXMLLoader(GestorParking.class.getResource(Rutas.PARKING));
+        AnchorPane root = loader.load(); // Esto inicializa todos los @FXML
+        parkingController controller = loader.getController();
+        controller.mostrarPlazas();
 
+        Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setTitle("Parking");
-        stage.setScene(nuevaEscena);
+        stage.setScene(scene);
         stage.show();
         System.out.println("Estoy entrando en parking");
     }
 
 
     @FXML
-    protected void OnClickSalir(ActionEvent event) {
-        Alert mensajeSalir = new Alert(Alert.AlertType.CONFIRMATION);
-
-        mensajeSalir.setTitle("Confirmación de salida");
-        mensajeSalir.setContentText("¿Estás seguro que deseas salir de la aplicación?");
-
-        ButtonType btnSi = new ButtonType("Sí");
-        ButtonType btnNo = new ButtonType("No");
-
-        mensajeSalir.getButtonTypes().setAll(btnSi, btnNo);
-
-        Optional<ButtonType> opcion = mensajeSalir.showAndWait();
-
-        if (opcion.get() == btnSi) {
-            System.exit(0);
-        } else {
-            mensajeSalir.close();
-        }
-
-
+     void OnClickSalir(ActionEvent event) throws IOException {
+        FuncionesReutilizables.mostrarAlertaConfirmacionSalir("Confirmación de salida","¿Estás seguro que deseas salir de la aplicación?",null);
     }
 
 
@@ -100,6 +88,12 @@ public class menuController {
         stage.show();
 
         System.out.println("Estoy entrando en Usuario");
+    }
+
+    @FXML
+    void onClickCambiaRol(ActionEvent event) throws IOException {
+        Stage stage = (Stage) imgAlcazar.getScene().getWindow();
+        FuncionesReutilizables.mostrarAlertaConfirmacionSalir("Confirmación de salida","¿Estás seguro de que quieres cambiar de rol?",stage);
     }
 
 }

@@ -5,6 +5,7 @@ import ies.torredelrey.jfma.appgestionparking.DAO.CocheDao;
 import ies.torredelrey.jfma.appgestionparking.conexionBBDD.Conexion;
 import ies.torredelrey.jfma.appgestionparking.modelo.Cliente;
 import ies.torredelrey.jfma.appgestionparking.modelo.Coche;
+import ies.torredelrey.jfma.appgestionparking.util.FuncionesReutilizables;
 import ies.torredelrey.jfma.appgestionparking.util.Validaciones;
 import ies.torredelrey.jfma.appgestionparking.vista.GestorParking;
 import javafx.collections.FXCollections;
@@ -186,17 +187,17 @@ public class clienteController {
 
 
         if (dni.isEmpty() && comboBuscar == null){
-            mostrarAlerta("Información","Ambos campos están vacíos, rellénalos por favor.");
+            FuncionesReutilizables.mostrarAlertaInformacion("Información","Ambos campos están vacíos, rellénalos por favor.");
             return;
         }
 
         if(dni.isEmpty()){
-            mostrarAlerta("Información","Rellena el campo dni, no puedes dejarlo vacío");
+            FuncionesReutilizables.mostrarAlertaInformacion("Información","Rellena el campo dni, no puedes dejarlo vacío");
             return;
         }
 
         if(comboBuscar == null){
-            mostrarAlerta("Información","Selecciona un modo de búsqueda");
+            FuncionesReutilizables.mostrarAlertaInformacion("Información","Selecciona un modo de búsqueda");
             return;
         }
 
@@ -219,7 +220,7 @@ public class clienteController {
 
 
             }else{
-                mostrarAlerta("Error","No existen coches asociados al siguiente dni "+dni);
+                FuncionesReutilizables.mostrarAlertaInformacion("Error","No existen coches asociados al siguiente dni "+dni);
                 tblCoche.getItems().clear(); //limpio los valores de la tabla
             }
         }
@@ -285,13 +286,7 @@ public class clienteController {
         return null;
     }
 
-    private void mostrarAlerta(String titulo, String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(titulo);
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
-    }
+
 
 
 }

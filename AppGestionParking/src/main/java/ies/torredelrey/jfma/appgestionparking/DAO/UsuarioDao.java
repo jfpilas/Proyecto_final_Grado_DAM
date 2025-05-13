@@ -16,9 +16,7 @@ public class UsuarioDao {
         if(Conexion.conectar() != null){
 
             //Hago la consulta
-            String consulta = "SELECT Nombre, Apellido, Email, Telefono, Contraseña, Rol, Nombre_usuario " +
-                    "FROM usuario " +
-                    "WHERE Nombre_usuario = ? AND Contraseña= ?";
+            String consulta = "SELECT Nombre, Apellido, Email, Telefono, Contraseña, Rol, Nombre_usuario FROM usuario WHERE Nombre_usuario = ? AND Contraseña= ?";
 
             try (PreparedStatement user = con.prepareStatement(consulta)) {
 

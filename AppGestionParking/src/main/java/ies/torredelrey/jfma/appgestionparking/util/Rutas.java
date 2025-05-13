@@ -9,6 +9,8 @@ public class Rutas {
     public static String ADDUSUARIOS = "/ies/torredelrey/jfma/appgestionparking/AddUsuario.fxml";
     public static String ADDCOCHES = "/ies/torredelrey/jfma/appgestionparking/addCoches.fxml";
     public static String PARKING = "/ies/torredelrey/jfma/appgestionparking/parking.fxml";
+    public static String PLAZA = "/ies/torredelrey/jfma/appgestionparking/plaza.fxml";
+    public static String RESERVA = "/ies/torredelrey/jfma/appgestionparking/reserva.fxml";
 
 
 }

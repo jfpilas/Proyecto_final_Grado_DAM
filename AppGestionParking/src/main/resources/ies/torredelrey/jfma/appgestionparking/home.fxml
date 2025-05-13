@@ -14,6 +14,7 @@
          <items>
                <MenuItem fx:id="mniCliente" mnemonicParsing="false" onAction="#OnClickCliente" text="Gestionar Cliente" />
                <MenuItem fx:id="mniUsuario" mnemonicParsing="false" onAction="#onClickUsuario" text="Gestionar Usuario" />
+               <MenuItem fx:id="mniCambiaRol" mnemonicParsing="false" onAction="#onClickCambiaRol" text="Cambiar Rol" />
                <MenuItem fx:id="mniParking" mnemonicParsing="false" onAction="#onClickParking" text="Parking" />
                <MenuItem fx:id="mniFactura" mnemonicParsing="false" onAction="#onClickFactura" text="Factura" />
                <MenuItem fx:id="mniSalir" mnemonicParsing="false" onAction="#OnClickSalir" text="Salir" />

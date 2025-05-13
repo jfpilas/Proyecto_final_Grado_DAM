@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.image.Image?>
@@ -22,66 +23,6 @@
       <Separator layoutX="14.0" layoutY="335.0" prefWidth="200.0" />
       <Separator layoutX="14.0" layoutY="445.0" prefWidth="200.0" />
       <Separator layoutX="14.0" layoutY="555.0" prefWidth="200.0" />
-      <ImageView fitHeight="85.0" fitWidth="200.0" layoutX="749.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../imagenes/coche.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="85.0" fitWidth="200.0" layoutX="749.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../imagenes/coche.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="85.0" fitWidth="200.0" layoutX="749.0" layoutY="237.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../imagenes/coche.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="85.0" fitWidth="200.0" layoutX="749.0" layoutY="348.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../imagenes/coche.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="85.0" fitWidth="200.0" layoutX="749.0" layoutY="461.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../imagenes/coche.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="85.0" fitWidth="200.0" layoutX="749.0" layoutY="573.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../imagenes/coche.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="85.0" fitWidth="169.0" layoutX="50.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../imagenes/coche.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="85.0" fitWidth="200.0" layoutX="50.0" layoutY="118.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../imagenes/coche.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="85.0" fitWidth="200.0" layoutX="50.0" layoutY="237.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../imagenes/coche.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="85.0" fitWidth="200.0" layoutX="50.0" layoutY="348.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../imagenes/coche.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="85.0" fitWidth="200.0" layoutX="50.0" layoutY="461.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../imagenes/coche.jpg" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="85.0" fitWidth="200.0" layoutX="50.0" layoutY="573.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../../../imagenes/coche.jpg" />
-         </image>
-      </ImageView>
       <Label layoutX="388.0" layoutY="271.0" text="TOTAL PLAZAS OCUPADAS:">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -90,65 +31,173 @@
          <font>
             <Font name="Arial Narrow Bold Italic" size="12.0" />
          </font></Label>
-      <Label layoutX="14.0" layoutY="14.0" text="1" textAlignment="CENTER">
+      <Label fx:id="plaza1" layoutX="-10.0" layoutY="48.0" rotate="-91.2" text="P001" textAlignment="CENTER">
          <font>
             <Font name="Bodoni MT Black Italic" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="126.0" text="2">
+      <Label fx:id="plaza2" layoutX="-10.0" layoutY="152.0" rotate="-91.2" text="P002">
          <font>
             <Font name="Bodoni MT Black Italic" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="237.0" text="3">
+      <Label fx:id="plaza3" layoutX="-10.0" layoutY="266.0" rotate="-91.2" text="P003">
          <font>
             <Font name="Bodoni MT Black Italic" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="709.0" layoutY="132.0" text="8">
+      <Label fx:id="plaza8" layoutX="685.0" layoutY="161.0" rotate="-91.2" text="P008">
          <font>
             <Font name="Bodoni MT Black Italic" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="709.0" layoutY="14.0" text="7">
+      <Label fx:id="plaza7" layoutX="685.0" layoutY="48.0" rotate="-91.2" text="P007">
          <font>
             <Font name="Bodoni MT Black Italic" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="16.0" layoutY="573.0" text="6">
+      <Label fx:id="plaza6" layoutX="-10.0" layoutY="602.0" rotate="-91.2" text="P006">
          <font>
             <Font name="Bodoni MT Black Italic" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="16.0" layoutY="461.0" text="5">
+      <Label fx:id="plaza5" layoutX="-10.0" layoutY="490.0" rotate="-91.2" text="P005">
          <font>
             <Font name="Bodoni MT Black Italic" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="14.0" layoutY="348.0" text="4">
+      <Label fx:id="plaza4" layoutX="-10.0" layoutY="377.0" rotate="-91.2" text="P004">
          <font>
             <Font name="Bodoni MT Black Italic" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="700.0" layoutY="573.0" text="12">
+      <Label fx:id="plaza12" layoutX="685.0" layoutY="602.0" rotate="-91.2" text="P012">
          <font>
             <Font name="Bodoni MT Black Italic" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="700.0" layoutY="461.0" text="11">
+      <Label fx:id="plaza11" layoutX="685.0" layoutY="490.0" rotate="-91.2" text="P011">
          <font>
             <Font name="Bodoni MT Black Italic" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="700.0" layoutY="348.0" text="10">
+      <Label fx:id="plaza10" layoutX="685.0" layoutY="377.0" rotate="-91.2" text="P010">
          <font>
             <Font name="Bodoni MT Black Italic" size="24.0" />
          </font>
       </Label>
-      <Label layoutX="711.0" layoutY="237.0" text="9">
+      <Label fx:id="plaza9" layoutX="685.0" layoutY="266.0" rotate="-91.2" text="P009">
          <font>
             <Font name="Bodoni MT Black Italic" size="24.0" />
          </font>
       </Label>
+      <Button fx:id="btnPlaza1" layoutX="39.0" layoutY="14.0" mnemonicParsing="false" onAction="#OnClickPlaza1" prefHeight="96.0" prefWidth="167.0">
+         <graphic>
+            <ImageView fitHeight="85.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../imagenes/coche.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnPlaza2" layoutX="39.0" layoutY="118.0" mnemonicParsing="false" onAction="#OnClickPlaza2" prefHeight="96.0" prefWidth="167.0">
+         <graphic>
+            <ImageView fitHeight="85.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../imagenes/coche.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnPlaza12" layoutX="742.0" layoutY="568.0" mnemonicParsing="false" onAction="#OnClickPlaza12" prefHeight="96.0" prefWidth="167.0">
+         <graphic>
+            <ImageView fitHeight="85.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../imagenes/coche.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnPlaza11" layoutX="742.0" layoutY="456.0" mnemonicParsing="false" onAction="#OnClickPlaza11" prefHeight="96.0" prefWidth="167.0">
+         <graphic>
+            <ImageView fitHeight="85.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../imagenes/coche.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnPlaza10" layoutX="742.0" layoutY="343.0" mnemonicParsing="false" onAction="#OnClickPlaza10" prefHeight="96.0" prefWidth="167.0">
+         <graphic>
+            <ImageView fitHeight="85.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../imagenes/coche.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnPlaza9" layoutX="742.0" layoutY="232.0" mnemonicParsing="false" onAction="#OnClickPlaza9" prefHeight="96.0" prefWidth="167.0">
+         <graphic>
+            <ImageView fitHeight="85.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../imagenes/coche.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnPlaza8" layoutX="742.0" layoutY="127.0" mnemonicParsing="false" onAction="#OnClickPlaza8" prefHeight="96.0" prefWidth="167.0">
+         <graphic>
+            <ImageView fitHeight="85.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../imagenes/coche.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnPlaza7" layoutX="742.0" layoutY="14.0" mnemonicParsing="false" onAction="#OnClickPlaza7" prefHeight="96.0" prefWidth="167.0">
+         <graphic>
+            <ImageView fitHeight="85.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../imagenes/coche.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnPlaza6" layoutX="39.0" layoutY="568.0" mnemonicParsing="false" onAction="#OnClickPlaza6" prefHeight="96.0" prefWidth="167.0">
+         <graphic>
+            <ImageView fitHeight="85.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../imagenes/coche.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnPlaza5" layoutX="39.0" layoutY="456.0" mnemonicParsing="false" onAction="#OnClickPlaza5" prefHeight="96.0" prefWidth="167.0">
+         <graphic>
+            <ImageView fitHeight="85.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../imagenes/coche.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnPlaza4" layoutX="39.0" layoutY="343.0" mnemonicParsing="false" onAction="#OnClickPlaza4" prefHeight="96.0" prefWidth="167.0">
+         <graphic>
+            <ImageView fitHeight="85.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../imagenes/coche.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="btnPlaza3" layoutX="39.0" layoutY="232.0" mnemonicParsing="false" onAction="#OnClickPlaza3" prefHeight="96.0" prefWidth="167.0">
+         <graphic>
+            <ImageView fitHeight="85.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../../../imagenes/coche.jpg" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
 </AnchorPane>
