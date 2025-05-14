@@ -76,16 +76,23 @@ public class Validaciones {
     }
 
     public static boolean validarMatricula(String matricula) {
-        if (matricula == null) return false;
+        if (matricula == null || matricula.trim().isEmpty()) return false;  // Añadido control de espacios vacíos
+
+        matricula = matricula.trim();
+
 
         String matriculaMayus = matricula.toUpperCase();
 
-        String formatoModerno = "^[0-9]{4}[ -]?[BCDFGHJKLMNPRSTVWXYZ]{3}$";
-        String formatoAntiguo = "^[A-Z]{1,2}[- ]?[0-9]{4}[- ]?[A-Z]{0,2}$";
-        String formatoExtranjero = "^[A-Z0-9]{1,4}[- ]?[A-Z0-9]{1,4}[- ]?[A-Z0-9]{1,4}$";
+
+        matriculaMayus = matriculaMayus.replaceAll("[ÁÁÉÉÍÍÓÓÚÚáéíóú]", "");
+
+
+        String formatoModerno = "^[0-9]{4}[BCDFGHJKLMNPRSTVWXYZ]{3}$";  // 4 dígitos + 3 letras
+        String formatoAntiguo = "^[A-Z]{1,2}[ -]?[0-9]{4}[ -]?[A-Z]{0,2}$"; // 1-2 letras + 4 dígitos + 0-2 letras
+
 
         return matriculaMayus.matches(formatoModerno)
-                || matriculaMayus.matches(formatoAntiguo)
-                || matriculaMayus.matches(formatoExtranjero);
+                || matriculaMayus.matches(formatoAntiguo);
+
     }
 }

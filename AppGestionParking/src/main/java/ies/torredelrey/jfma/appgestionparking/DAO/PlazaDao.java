@@ -3,7 +3,10 @@ package ies.torredelrey.jfma.appgestionparking.DAO;
 import ies.torredelrey.jfma.appgestionparking.conexionBBDD.Conexion;
 import ies.torredelrey.jfma.appgestionparking.modelo.Cliente;
 import ies.torredelrey.jfma.appgestionparking.modelo.Plaza;
+import ies.torredelrey.jfma.appgestionparking.modelo.Reserva;
 import ies.torredelrey.jfma.appgestionparking.modelo.Usuario;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,14 +15,14 @@ import java.sql.SQLException;
 
 public class PlazaDao {
 
-    public static int contarPlazasOcupadas() {
+    public static int contarPlazasOcupadasYReservadas() {
         Connection con = Conexion.conectar();
 
         // Si la conexión es válida
         if (con != null) {
 
             // Consulta SQL para contar las plazas cuyo estado sea 'Ocupada'
-            String contarPlazas = "SELECT COUNT(*) FROM plaza WHERE Estado = 'Ocupada'";
+            String contarPlazas = "SELECT COUNT(*) FROM plaza WHERE Estado = 'Ocupada' or Estado = 'Reservada'";
 
             try (PreparedStatement stmt = con.prepareStatement(contarPlazas)) {
 
@@ -62,7 +65,7 @@ public class PlazaDao {
                             resultado.getString("Numero_Plaza"),
                             resultado.getString("Tipo"),
                             resultado.getString("Estado"),
-                            resultado.getString("Tarifa")
+                            resultado.getFloat("Tarifa")
                             );
                 }
             } catch (SQLException e) {
@@ -94,6 +97,74 @@ public class PlazaDao {
         }
 
         return false;
+    }
+
+    public static ObservableList<Plaza> listarTodasLasPlazas() {
+
+        ObservableList<Plaza> listaPlazas = FXCollections.observableArrayList();
+        Connection con = Conexion.conectar();
+        if (Conexion.conectar() != null) {
+
+            //Hago la consulta
+            String consulta = "SELECT ID_Plaza,Numero_Plaza,Tipo,Estado, Tarifa FROM plaza ";
+
+            try (PreparedStatement plaza = con.prepareStatement(consulta)) {
+
+
+                //Guardo en resultado lo que me devuelve la base de datos
+
+                ResultSet resultado = plaza.executeQuery();
+                while (resultado.next()) {
+                    Plaza nuevaPlaza = new Plaza(resultado.getInt("ID_Plaza"),
+                            resultado.getString("Numero_Plaza"),
+                            resultado.getString("Tipo"),
+                            resultado.getString("Estado"),
+                            resultado.getFloat("Tarifa"));
+
+                    listaPlazas.add(nuevaPlaza);
+                }
+            } catch (SQLException e) {
+
+                System.out.println("Error " + e.getMessage());
+
+            }
+        }
+
+        return listaPlazas;
+    }
+
+    public static Plaza ObtenerPlazaPorId(int id) {
+
+        Connection con = Conexion.conectar();
+        Plaza plaza = null;
+        if (Conexion.conectar() != null) {
+
+            //Hago la consulta
+            String consulta = "SELECT * FROM plaza where ID_Plaza = ? ";
+
+            try (PreparedStatement factura = con.prepareStatement(consulta)) {
+                factura.setInt(1,id);
+
+                //Guardo en resultado lo que me devuelve la base de datos
+
+                ResultSet resultado = factura.executeQuery();
+                while (resultado.next()) {
+                    plaza = new Plaza(
+                            resultado.getString("Numero_Plaza"),
+                            resultado.getString("Tipo"),
+                            resultado.getString("Estado"),
+                            resultado.getFloat("Tarifa")
+                            );
+
+                }
+            } catch (SQLException e) {
+
+                System.out.println("Error " + e.getMessage());
+
+            }
+        }
+
+        return plaza;
     }
 }
 

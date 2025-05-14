@@ -5,10 +5,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Optional;
 
 public class FuncionesReutilizables {
@@ -47,6 +50,15 @@ public class FuncionesReutilizables {
         } else {
             mensajeSalir.close();
         }
+    }
+
+    public static void ajustarImagenes(String ruta, ImageView img,int anchura,int altura){
+
+        Image imagen = new Image(Objects.requireNonNull(FuncionesReutilizables.class.getResource(ruta)).toString());
+        img.setImage(imagen);
+        img.setFitWidth(anchura);
+        img.setFitHeight(altura);
+        img.setPreserveRatio(true);
     }
 
 

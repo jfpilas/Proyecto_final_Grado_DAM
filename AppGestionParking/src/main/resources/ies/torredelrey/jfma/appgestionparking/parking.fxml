@@ -3,7 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
@@ -11,18 +10,18 @@
 <AnchorPane prefHeight="703.0" prefWidth="924.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ies.torredelrey.jfma.appgestionparking.controlador.parkingController">
    <children>
       <ImageView fx:id="imagenColorParking" fitHeight="129.0" fitWidth="200.0" layoutX="362.0" layoutY="232.0" pickOnBounds="true" preserveRatio="true" />
-      <Separator layoutX="214.0" orientation="VERTICAL" prefHeight="678.0" prefWidth="6.0" />
-      <Separator layoutX="694.0" orientation="VERTICAL" prefHeight="678.0" prefWidth="6.0" />
-      <Separator layoutX="697.0" layoutY="226.0" prefWidth="200.0" />
-      <Separator layoutX="697.0" layoutY="337.0" prefWidth="200.0" />
-      <Separator layoutX="697.0" layoutY="447.0" prefWidth="200.0" />
-      <Separator layoutX="697.0" layoutY="557.0" prefWidth="200.0" />
-      <Separator layoutX="697.0" layoutY="115.0" prefHeight="3.0" prefWidth="200.0" />
-      <Separator layoutX="14.0" layoutY="113.0" prefWidth="200.0" />
-      <Separator layoutX="14.0" layoutY="224.0" prefWidth="200.0" />
-      <Separator layoutX="14.0" layoutY="335.0" prefWidth="200.0" />
-      <Separator layoutX="14.0" layoutY="445.0" prefWidth="200.0" />
-      <Separator layoutX="14.0" layoutY="555.0" prefWidth="200.0" />
+      <Separator layoutX="288.0" layoutY="-1.0" orientation="VERTICAL" prefHeight="678.0" prefWidth="6.0" />
+      <Separator layoutX="623.0" layoutY="4.0" orientation="VERTICAL" prefHeight="678.0" prefWidth="6.0" />
+      <Separator layoutX="627.0" layoutY="226.0" prefHeight="3.0" prefWidth="270.0" />
+      <Separator layoutX="627.0" layoutY="337.0" prefHeight="3.0" prefWidth="270.0" />
+      <Separator layoutX="627.0" layoutY="447.0" prefHeight="3.0" prefWidth="270.0" />
+      <Separator layoutX="627.0" layoutY="557.0" prefHeight="3.0" prefWidth="270.0" />
+      <Separator layoutX="627.0" layoutY="115.0" prefHeight="3.0" prefWidth="270.0" />
+      <Separator layoutX="14.0" layoutY="113.0" prefHeight="3.0" prefWidth="270.0" />
+      <Separator layoutX="14.0" layoutY="224.0" prefHeight="3.0" prefWidth="270.0" />
+      <Separator layoutX="14.0" layoutY="335.0" prefHeight="3.0" prefWidth="270.0" />
+      <Separator layoutX="14.0" layoutY="445.0" prefHeight="3.0" prefWidth="270.0" />
+      <Separator layoutX="14.0" layoutY="558.0" prefHeight="3.0" prefWidth="270.0" />
       <Label layoutX="388.0" layoutY="271.0" text="TOTAL PLAZAS OCUPADAS:">
          <font>
             <Font name="System Bold" size="12.0" />
@@ -93,111 +92,75 @@
       </Label>
       <Button fx:id="btnPlaza1" layoutX="39.0" layoutY="14.0" mnemonicParsing="false" onAction="#OnClickPlaza1" prefHeight="96.0" prefWidth="167.0">
          <graphic>
-            <ImageView fitHeight="85.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../imagenes/coche.jpg" />
-               </image>
-            </ImageView>
+            <ImageView fx:id="img1" fitHeight="85.0" fitWidth="146.0" pickOnBounds="true" preserveRatio="true" />
          </graphic>
       </Button>
       <Button fx:id="btnPlaza2" layoutX="39.0" layoutY="118.0" mnemonicParsing="false" onAction="#OnClickPlaza2" prefHeight="96.0" prefWidth="167.0">
          <graphic>
-            <ImageView fitHeight="85.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../imagenes/coche.jpg" />
-               </image>
-            </ImageView>
+            <ImageView fx:id="img2" fitHeight="85.0" fitWidth="146.0" pickOnBounds="true" preserveRatio="true" />
          </graphic>
       </Button>
       <Button fx:id="btnPlaza12" layoutX="742.0" layoutY="568.0" mnemonicParsing="false" onAction="#OnClickPlaza12" prefHeight="96.0" prefWidth="167.0">
          <graphic>
-            <ImageView fitHeight="85.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../imagenes/coche.jpg" />
-               </image>
-            </ImageView>
+            <ImageView fx:id="img12" fitHeight="85.0" fitWidth="146.0" pickOnBounds="true" preserveRatio="true" />
          </graphic>
       </Button>
       <Button fx:id="btnPlaza11" layoutX="742.0" layoutY="456.0" mnemonicParsing="false" onAction="#OnClickPlaza11" prefHeight="96.0" prefWidth="167.0">
          <graphic>
-            <ImageView fitHeight="85.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../imagenes/coche.jpg" />
-               </image>
-            </ImageView>
+            <ImageView fx:id="img11" fitHeight="85.0" fitWidth="149.0" pickOnBounds="true" preserveRatio="true" />
          </graphic>
       </Button>
       <Button fx:id="btnPlaza10" layoutX="742.0" layoutY="343.0" mnemonicParsing="false" onAction="#OnClickPlaza10" prefHeight="96.0" prefWidth="167.0">
          <graphic>
-            <ImageView fitHeight="85.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../imagenes/coche.jpg" />
-               </image>
-            </ImageView>
+            <ImageView fx:id="img10" fitHeight="85.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
          </graphic>
       </Button>
       <Button fx:id="btnPlaza9" layoutX="742.0" layoutY="232.0" mnemonicParsing="false" onAction="#OnClickPlaza9" prefHeight="96.0" prefWidth="167.0">
          <graphic>
-            <ImageView fitHeight="85.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../imagenes/coche.jpg" />
-               </image>
-            </ImageView>
+            <ImageView fx:id="img9" fitHeight="85.0" fitWidth="147.0" pickOnBounds="true" preserveRatio="true" />
          </graphic>
       </Button>
       <Button fx:id="btnPlaza8" layoutX="742.0" layoutY="127.0" mnemonicParsing="false" onAction="#OnClickPlaza8" prefHeight="96.0" prefWidth="167.0">
          <graphic>
-            <ImageView fitHeight="85.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../imagenes/coche.jpg" />
-               </image>
-            </ImageView>
+            <ImageView fx:id="img8" fitHeight="85.0" fitWidth="146.0" pickOnBounds="true" preserveRatio="true" />
          </graphic>
       </Button>
       <Button fx:id="btnPlaza7" layoutX="742.0" layoutY="14.0" mnemonicParsing="false" onAction="#OnClickPlaza7" prefHeight="96.0" prefWidth="167.0">
          <graphic>
-            <ImageView fitHeight="85.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../imagenes/coche.jpg" />
-               </image>
-            </ImageView>
+            <ImageView fx:id="img7" fitHeight="85.0" fitWidth="150.0" pickOnBounds="true" preserveRatio="true" />
          </graphic>
       </Button>
       <Button fx:id="btnPlaza6" layoutX="39.0" layoutY="568.0" mnemonicParsing="false" onAction="#OnClickPlaza6" prefHeight="96.0" prefWidth="167.0">
          <graphic>
-            <ImageView fitHeight="85.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../imagenes/coche.jpg" />
-               </image>
-            </ImageView>
+            <ImageView fx:id="img6" fitHeight="85.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true" />
          </graphic>
       </Button>
       <Button fx:id="btnPlaza5" layoutX="39.0" layoutY="456.0" mnemonicParsing="false" onAction="#OnClickPlaza5" prefHeight="96.0" prefWidth="167.0">
          <graphic>
-            <ImageView fitHeight="85.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../imagenes/coche.jpg" />
-               </image>
-            </ImageView>
+            <ImageView fx:id="img5" fitHeight="85.0" fitWidth="154.0" pickOnBounds="true" preserveRatio="true" />
          </graphic>
       </Button>
       <Button fx:id="btnPlaza4" layoutX="39.0" layoutY="343.0" mnemonicParsing="false" onAction="#OnClickPlaza4" prefHeight="96.0" prefWidth="167.0">
          <graphic>
-            <ImageView fitHeight="85.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../imagenes/coche.jpg" />
-               </image>
-            </ImageView>
+            <ImageView fx:id="img4" fitHeight="85.0" fitWidth="153.0" pickOnBounds="true" preserveRatio="true" />
          </graphic>
       </Button>
       <Button fx:id="btnPlaza3" layoutX="39.0" layoutY="232.0" mnemonicParsing="false" onAction="#OnClickPlaza3" prefHeight="96.0" prefWidth="167.0">
          <graphic>
-            <ImageView fitHeight="85.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../imagenes/coche.jpg" />
-               </image>
-            </ImageView>
+            <ImageView fx:id="img3" fitHeight="85.0" fitWidth="151.0" pickOnBounds="true" preserveRatio="true" />
          </graphic>
       </Button>
+      <ImageView fx:id="imgTipo11" fitHeight="40.0" fitWidth="42.0" layoutX="640.0" layoutY="456.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgTipo10" fitHeight="40.0" fitWidth="42.0" layoutX="640.0" layoutY="352.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgTipo9" fitHeight="40.0" fitWidth="42.0" layoutX="640.0" layoutY="240.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgTipo8" fitHeight="40.0" fitWidth="42.0" layoutX="640.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgTipo7" fitHeight="40.0" fitWidth="42.0" layoutX="640.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgTipo6" fitHeight="40.0" fitWidth="42.0" layoutX="232.0" layoutY="568.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgTipo5" fitHeight="40.0" fitWidth="42.0" layoutX="232.0" layoutY="456.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgTipo4" fitHeight="40.0" fitWidth="42.0" layoutX="232.0" layoutY="352.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgTipo3" fitHeight="40.0" fitWidth="42.0" layoutX="232.0" layoutY="240.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgTipo2" fitHeight="40.0" fitWidth="42.0" layoutX="232.0" layoutY="127.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgTipo1" fitHeight="40.0" fitWidth="42.0" layoutX="232.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="imgTipo12" fitHeight="40.0" fitWidth="42.0" layoutX="640.0" layoutY="568.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

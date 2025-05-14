@@ -7,15 +7,51 @@ public class Coche {
     private String Color;
     private String Tipo;
     private int idCliente;
+    private int idCoche;
 
-    public Coche( int idCliente, String matricula, String marca, String modelo, String color, String tipo) {
+    public Coche(int idCoche, int idCliente, String matricula, String marca, String modelo, String color, String tipo) {
         this.idCliente = idCliente;
         this.matricula = matricula;
         Marca = marca;
         Modelo = modelo;
         Color = color;
         Tipo = tipo;
+        this.idCoche=idCoche;
+    }
 
+    public Coche(String matricula, String marca, String modelo, String color, String tipo) {
+        this.matricula = matricula;
+        Marca = marca;
+        Modelo = modelo;
+        Color = color;
+        Tipo = tipo;
+
+    }
+
+    public Coche(String matricula, String marca, String modelo, String color, String tipo, int idCoche) {
+        this.matricula = matricula;
+        Marca = marca;
+        Modelo = modelo;
+        Color = color;
+        Tipo = tipo;
+        this.idCoche = idCoche;
+    }
+
+    public Coche(int idCliente, String matricula, String marca, String modelo, String color, String tipo) {
+        this.idCliente = idCliente;
+        this.matricula = matricula;
+        Marca = marca;
+        Modelo = modelo;
+        Color = color;
+        Tipo = tipo;
+    }
+
+    public int getIdCoche() {
+        return idCoche;
+    }
+
+    public void setIdCoche(int idCoche) {
+        this.idCoche = idCoche;
     }
 
     public String getMatricula() {

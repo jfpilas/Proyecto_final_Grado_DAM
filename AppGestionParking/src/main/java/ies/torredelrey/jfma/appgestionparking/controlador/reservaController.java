@@ -1,8 +1,11 @@
 package ies.torredelrey.jfma.appgestionparking.controlador;
 
 
+import ies.torredelrey.jfma.appgestionparking.DAO.ClienteDao;
+import ies.torredelrey.jfma.appgestionparking.DAO.CocheDao;
 import ies.torredelrey.jfma.appgestionparking.DAO.PlazaDao;
 import ies.torredelrey.jfma.appgestionparking.DAO.ReservaDao;
+import ies.torredelrey.jfma.appgestionparking.modelo.Cliente;
 import ies.torredelrey.jfma.appgestionparking.modelo.Reserva;
 import ies.torredelrey.jfma.appgestionparking.util.FuncionesReutilizables;
 import ies.torredelrey.jfma.appgestionparking.util.Validaciones;
@@ -13,6 +16,8 @@ import javafx.stage.Stage;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Optional;
@@ -94,22 +99,38 @@ public class reservaController {
         if (opcion.get() == btnSi) {
             String dni = txtDni.getText();
             String matricula = txtMatricula.getText();
-//        String NumPlaza = txtNumPlaza.getText();
             LocalDate fechaEntrada = dtpFechaE.getValue();
             LocalDate fechaSalida = dtpFechaS.getValue();
+
+            LocalDateTime fechaEntradaHora =LocalDateTime.of(fechaEntrada, LocalTime.now());
+            LocalDateTime fechaSalidaHora =LocalDateTime.of(fechaSalida, LocalTime.now());
 
             Reserva verificacion = ReservaDao.verificacionPlazaReservada(IdPlaza);
             if(verificacion!= null){
                 FuncionesReutilizables.mostrarAlertaInformacion("Error","Esta plaza no está disponible para reservar , ya está ocupada");
                 return;
             }
+
+            Cliente cliente = ClienteDao.buscarDniEnBBDD(dni);
+            if(cliente == null){
+                FuncionesReutilizables.mostrarAlertaInformacion("Error", "Este cliente no está registrado en el hotel");
+                return;
+            }
+
             if(!Validaciones.validarDNI(dni)){
                 FuncionesReutilizables.mostrarAlertaInformacion("Error","Su dni no es correcto,seguro que se ha equivocado.Prueba otra vez.");
+
                 return ;
+            }
+
+            if(!CocheDao.verificarMatricula(matricula)){
+                FuncionesReutilizables.mostrarAlertaInformacion("Error","Su matrícula no está registrada en el hotel.");
+                return;
             }
 
             if(!Validaciones.validarMatricula(matricula)){
                 FuncionesReutilizables.mostrarAlertaInformacion("Error","Su matrícula es incorrecta.");
+
                 return;
             }
 
@@ -119,8 +140,8 @@ public class reservaController {
                 Reserva nuevaReserva = new Reserva(resultadoIds.get("idCliente"),
                         resultadoIds.get("idCoche"),
                         IdPlaza, //necesito un metodo para conseguir el id de la plaza
-                        fechaEntrada,
-                        fechaSalida
+                        fechaEntradaHora,
+                        fechaSalidaHora
                 );
 
 

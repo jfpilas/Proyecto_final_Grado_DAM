@@ -5,9 +5,9 @@ public class Plaza {
     private String numPlaza;
     private String tipo;
     private String estado;
-    private String tarifa;
+    private float tarifa;
 
-    public Plaza(int idPlaza,String numPlaza, String tipo, String estado, String tarifa) {
+    public Plaza(int idPlaza,String numPlaza, String tipo, String estado, float tarifa) {
         this.idPlaza = idPlaza;
         this.numPlaza = numPlaza;
         this.tipo = tipo;
@@ -15,7 +15,7 @@ public class Plaza {
         this.tarifa = tarifa;
     }
 
-    public Plaza(String numPlaza, String tipo, String estado, String tarifa) {
+    public Plaza(String numPlaza, String tipo, String estado, float tarifa) {
         this.idPlaza = getIdPlaza();
         this.numPlaza = numPlaza;
         this.tipo = tipo;
@@ -55,11 +55,11 @@ public class Plaza {
         this.estado = estado;
     }
 
-    public String getTarifa() {
+    public Float getTarifa() {
         return tarifa;
     }
 
-    public void setTarifa(String tarifa) {
+    public void setTarifa(Float tarifa) {
         this.tarifa = tarifa;
     }
 

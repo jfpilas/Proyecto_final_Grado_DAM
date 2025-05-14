@@ -5,17 +5,25 @@ import ies.torredelrey.jfma.appgestionparking.DAO.CocheDao;
 import ies.torredelrey.jfma.appgestionparking.conexionBBDD.Conexion;
 import ies.torredelrey.jfma.appgestionparking.modelo.Cliente;
 import ies.torredelrey.jfma.appgestionparking.modelo.Coche;
+import ies.torredelrey.jfma.appgestionparking.modelo.FacturaPago;
 import ies.torredelrey.jfma.appgestionparking.util.FuncionesReutilizables;
+import ies.torredelrey.jfma.appgestionparking.util.Rutas;
+import ies.torredelrey.jfma.appgestionparking.util.TamanoImagenes;
 import ies.torredelrey.jfma.appgestionparking.util.Validaciones;
 import ies.torredelrey.jfma.appgestionparking.vista.GestorParking;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -27,9 +35,29 @@ import java.util.Optional;
 public class clienteController {
 
     ObservableList<String> modoBusqueda = FXCollections.observableArrayList("DNI");
+    ObservableList<Coche> listaCoches = null;
+    private int posicionCocheTabla ;
+    private String matricula ;
+    private String marca ;
+    private String modelo;
+    private String color;
+    private String tipo ;
 
     @FXML
     private TextField txtDniBuscar;
+
+    @FXML
+    private ImageView imgEliminar;
+
+    @FXML
+    private ImageView imgModificar;
+
+    @FXML
+    private ImageView imgCancelar;
+
+    @FXML
+    private ImageView imgGuardar;
+
 
     @FXML
     private Button btnBuscar;
@@ -51,6 +79,9 @@ public class clienteController {
 
     @FXML
     private TableColumn<Coche, String> colModelo;
+
+    @FXML
+    private TableColumn<Coche, Integer> colID;
 
     @FXML
     private TableColumn<Coche, String> colTipo;
@@ -132,6 +163,11 @@ public class clienteController {
             return;
         }
 
+        if(ClienteDao.buscarEmailYdni(email,dni)){
+            FuncionesReutilizables.mostrarAlertaInformacion("Error","Ese cliente ya existe.");
+            return;
+        }
+
         // Si todas las validaciones son correctas, guardar los datos
 
         Cliente nuevocliente = new Cliente(direccion,nombre,apellido,dni,fecha,email,telefono);
@@ -155,7 +191,7 @@ public class clienteController {
                 mensajeExito.close();
             }
         } else {
-            Cliente busqueda = buscarDniEnBBDD(dni);
+            Cliente busqueda = ClienteDao.buscarDniEnBBDD(dni);
 
 
             if(busqueda.getDni().equals(dni) ){
@@ -196,19 +232,36 @@ public class clienteController {
             return;
         }
 
+        if(!Validaciones.validarDNI(dni)){
+            FuncionesReutilizables.mostrarAlertaInformacion("Error", "El dni insertado no es correcto.");
+        }
+
         if(comboBuscar == null){
             FuncionesReutilizables.mostrarAlertaInformacion("Información","Selecciona un modo de búsqueda");
             return;
         }
 
 
-        if(buscarDniEnBBDD(dni)!=null){
+        if(ClienteDao.buscarDniEnBBDD(dni)!=null){
 
-            Cliente clienteBuscado = buscarDniEnBBDD(dni);
+            Cliente clienteBuscado = ClienteDao.buscarDniEnBBDD(dni);
 
             int id = clienteBuscado.getIdCliente();
 
             ObservableList<Coche> coches = CocheDao.listarCochesCliente(id);
+
+            listaCoches = FXCollections.observableArrayList();
+
+            for(Coche c : coches){
+                int CiD = c.getIdCoche();
+                String matricula = c.getMatricula();
+                String marca = c.getMarca();
+                String modelo = c.getModelo();
+                String color = c.getColor();
+                String tipo = c.getTipo();
+
+                listaCoches.add(new Coche(matricula,marca,modelo,color,tipo,CiD));
+            }
 
             if(!coches.isEmpty()){
                 this.colMatricula.setCellValueFactory(new PropertyValueFactory<>("matricula"));
@@ -216,6 +269,7 @@ public class clienteController {
                 this.colModelo.setCellValueFactory(new PropertyValueFactory<>("Modelo"));
                 this.colColor.setCellValueFactory(new PropertyValueFactory<>("Color"));
                 this.colTipo.setCellValueFactory(new PropertyValueFactory<>("Tipo"));
+                this.colID.setCellValueFactory(new PropertyValueFactory<>("idCoche"));
                 this.tblCoche.setItems(coches);
 
 
@@ -226,6 +280,45 @@ public class clienteController {
         }
 
 
+    }
+
+    @FXML
+    void OnClickEliminar(ActionEvent event) {
+
+        Coche cocheSeleccionado = tblCoche.getSelectionModel().getSelectedItem();
+
+        if (cocheSeleccionado == null) {
+            FuncionesReutilizables.mostrarAlertaInformacion("Error", "Debes seleccionar un coche de la tabla.");
+            return;
+        }
+
+        if(CocheDao.eliminarCoche(cocheSeleccionado)){
+            FuncionesReutilizables.mostrarAlertaInformacion("Éxito","Coche eliminado correctamente.");
+        }else{
+            FuncionesReutilizables.mostrarAlertaInformacion("Error","No se ha podido eliminar el coche.");
+        }
+    }
+
+    @FXML
+    void OnClickModificar(ActionEvent event) throws IOException {
+        FXMLLoader loader = new  FXMLLoader(GestorParking.class.getResource(Rutas.MODIFICARCOCHE));
+        AnchorPane root = loader.load();
+        cocheController controller = loader.getController();
+        Coche cocheSeleccionado = tblCoche.getSelectionModel().getSelectedItem();
+        System.out.println(cocheSeleccionado);
+
+        if (cocheSeleccionado == null) {
+            FuncionesReutilizables.mostrarAlertaInformacion("Error", "Debes seleccionar un coche de la tabla.");
+            return;
+        }
+
+        controller.setCoche(cocheSeleccionado);
+
+        Stage stage = new Stage();
+        Scene scene = new Scene(root);
+        stage.setTitle("Modificar");
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -244,49 +337,20 @@ public class clienteController {
         txtTelefonoCliente.setText("");
     }
 
-    private Cliente buscarDniEnBBDD(String dni){
-
-        Connection con = Conexion.conectar();
-        if(Conexion.conectar() != null){
-
-            //Hago la consulta
-            String consulta = "SELECT ID_Cliente,Nombre, Apellido, Dni, Direccion, Fecha_Nacimiento, Email, Telefono " +
-                    "FROM Cliente " +
-                    "WHERE Dni = ?";
-
-            try (PreparedStatement cliente = con.prepareStatement(consulta)) {
-
-                // paso los parametros a la consulta que hize arriba
-                cliente.setString(1, dni);
-
-
-
-                //Guardo en resultado lo que me devuelve la base de datos
-
-                ResultSet resultado = cliente.executeQuery();
-                if(resultado.next()){
-                    return new Cliente(
-                            resultado.getInt("ID_Cliente"),
-                            resultado.getString("Direccion"),
-                            resultado.getString("Nombre"),
-                            resultado.getString("Apellido"),
-                            resultado.getString("Dni"),
-                            resultado.getDate("Fecha_Nacimiento").toLocalDate(),
-                            resultado.getString("Email"),
-                            resultado.getString("Telefono"));
-
-                }
-            } catch (SQLException e) {
-
-                System.out.println("Error " + e.getMessage());
-
-            }
-        }
-
-        return null;
+    public void setImagenModificar(String ruta){
+        FuncionesReutilizables.ajustarImagenes(ruta,imgModificar, TamanoImagenes.ANCHURAIMAGENBOTONES,TamanoImagenes.ALTURAIMAGENBOTONES);
     }
 
+    public void setImagenEliminar(String ruta){
+        FuncionesReutilizables.ajustarImagenes(ruta,imgEliminar, TamanoImagenes.ANCHURAIMAGENBOTONES,TamanoImagenes.ALTURAIMAGENBOTONES);
+    }
 
+    public void setImagenGuardar(String ruta){
+        FuncionesReutilizables.ajustarImagenes(ruta,imgGuardar, TamanoImagenes.ANCHURAIMAGENBOTONES,TamanoImagenes.ALTURAIMAGENBOTONES);
+    }
 
+    public void setImagenCancelar(String ruta){
+        FuncionesReutilizables.ajustarImagenes(ruta,imgCancelar, TamanoImagenes.ANCHURAIMAGENBOTONES,TamanoImagenes.ALTURAIMAGENBOTONES);
+    }
 
 }

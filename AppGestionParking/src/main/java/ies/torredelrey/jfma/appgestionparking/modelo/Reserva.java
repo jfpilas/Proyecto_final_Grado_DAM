@@ -5,14 +5,16 @@ import java.time.LocalDateTime;
 
 public class Reserva {
 
+    private int idReserva;
     private int idCliente;
     private int idCoche;
     private int idPlaza;
-    private LocalDate fechaEntrada;
-    private LocalDate fechaSalida;
+    private LocalDateTime fechaEntrada;
+    private LocalDateTime fechaSalida;
     private String estado;
 
-    public Reserva(int idCliente, int idCoche, int idPlaza, LocalDate fechaEntrada, LocalDate fechaSalida, String estado) {
+    public Reserva(int idReserva, int idCliente, int idCoche, int idPlaza, LocalDateTime fechaEntrada, LocalDateTime fechaSalida, String estado) {
+        this.idReserva = idReserva;
         this.idCliente = idCliente;
         this.idCoche = idCoche;
         this.idPlaza = idPlaza;
@@ -21,7 +23,7 @@ public class Reserva {
         this.estado = estado;
     }
 
-    public Reserva(int idCliente, int idCoche, int idPlaza, LocalDate fechaEntrada, LocalDate fechaSalida) {
+    public Reserva(int idCliente, int idCoche, int idPlaza, LocalDateTime fechaEntrada, LocalDateTime fechaSalida) {
         this.idCliente = idCliente;
         this.idCoche = idCoche;
         this.idPlaza = idPlaza;
@@ -34,6 +36,12 @@ public class Reserva {
     public int getIdCliente() {
         return idCliente;
     }
+
+    public void setIdReserva(int idReserva) {
+        this.idReserva = idReserva;
+    }
+
+    public int getIdReserva(){return idReserva;}
 
     public void setIdCliente(int idCliente) {
         this.idCliente = idCliente;
@@ -55,19 +63,19 @@ public class Reserva {
         this.idPlaza = idPlaza;
     }
 
-    public LocalDate getFechaEntrada() {
+    public LocalDateTime getFechaEntrada() {
         return fechaEntrada;
     }
 
-    public void setFechaEntrada(LocalDate fechaEntrada) {
+    public void setFechaEntrada(LocalDateTime fechaEntrada) {
         this.fechaEntrada = fechaEntrada;
     }
 
-    public LocalDate getFechaSalida() {
+    public LocalDateTime getFechaSalida() {
         return fechaSalida;
     }
 
-    public void setFechaSalida(LocalDate fechaSalida) {
+    public void setFechaSalida(LocalDateTime fechaSalida) {
         this.fechaSalida = fechaSalida;
     }
 
@@ -77,5 +85,19 @@ public class Reserva {
 
     public void setEstado(String estado) {
         this.estado = estado;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Reserva{");
+        sb.append("idReserva=").append(idReserva);
+        sb.append(", idCliente=").append(idCliente);
+        sb.append(", idCoche=").append(idCoche);
+        sb.append(", idPlaza=").append(idPlaza);
+        sb.append(", fechaEntrada=").append(fechaEntrada);
+        sb.append(", fechaSalida=").append(fechaSalida);
+        sb.append(", estado='").append(estado).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

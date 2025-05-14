@@ -2,6 +2,7 @@ module ies.torredelrey.jfma.appgestionparking {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
+    requires jakarta.mail;
 
 
     opens ies.torredelrey.jfma.appgestionparking to javafx.fxml;

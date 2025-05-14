@@ -1,11 +1,12 @@
 package ies.torredelrey.jfma.appgestionparking.DAO;
 
 import ies.torredelrey.jfma.appgestionparking.conexionBBDD.Conexion;
+import ies.torredelrey.jfma.appgestionparking.modelo.Cliente;
 import ies.torredelrey.jfma.appgestionparking.modelo.Reserva;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
+import java.sql.*;
 import java.util.HashMap;
 
 public class ReservaDao {
@@ -23,8 +24,8 @@ public class ReservaDao {
                 stmt.setInt(1, reserva.getIdCliente());
                 stmt.setInt(2, reserva.getIdCoche());
                 stmt.setInt(3, reserva.getIdPlaza());
-                stmt.setDate(4, java.sql.Date.valueOf(reserva.getFechaEntrada()));
-                stmt.setDate(5, java.sql.Date.valueOf(reserva.getFechaSalida()));
+                stmt.setTimestamp(4, Timestamp.valueOf(reserva.getFechaEntrada()));
+                stmt.setTimestamp(5, Timestamp.valueOf(reserva.getFechaSalida()));
                 stmt.setString(6, reserva.getEstado());
 
                 // Ejecutar la inserción
@@ -41,11 +42,12 @@ public class ReservaDao {
     }
 
     public static Reserva verificacionPlazaReservada(int id){
+
         Connection con = Conexion.conectar();
         if(Conexion.conectar() != null){
 
             //Hago la consulta
-            String consulta = "SELECT ID_Cliente,ID_Coche,ID_Plaza,Fecha_Entrada,Fecha_Salida,Estado FROM reserva WHERE ID_Plaza = ? ";
+            String consulta = "SELECT ID_Reserva, ID_Cliente,ID_Coche,ID_Plaza,Fecha_Entrada,Fecha_Salida,Estado FROM reserva WHERE ID_Plaza = ?  ";
 
             try (PreparedStatement reserva = con.prepareStatement(consulta)) {
 
@@ -54,15 +56,17 @@ public class ReservaDao {
 
 
 
+
                 //Guardo en resultado lo que me devuelve la base de datos
 
                 ResultSet resultado = reserva.executeQuery();
                 if(resultado.next()){
-                    return new Reserva(resultado.getInt("ID_Cliente"),
+                    return new Reserva( resultado.getInt("ID_Reserva"),
+                            resultado.getInt("ID_Cliente"),
                             resultado.getInt("ID_Coche"),
                             resultado.getInt("ID_Plaza"),
-                            resultado.getDate("Fecha_Entrada").toLocalDate(),
-                            resultado.getDate("Fecha_Salida").toLocalDate(),
+                            resultado.getTimestamp("Fecha_Entrada").toLocalDateTime(),
+                            resultado.getTimestamp("Fecha_Salida").toLocalDateTime(),
                             resultado.getString("Estado")
                     );
                 }
@@ -99,6 +103,111 @@ public class ReservaDao {
         }
 
         return null;
+    }
+
+    public static ObservableList<Reserva> obtenerReservasPorIdCliente(int idCliente) {
+        ObservableList<Reserva> reservasCliente = FXCollections.observableArrayList();
+        ObservableList<Reserva> todasReservas = listarReservas(); // método que ya tienes
+
+        for (Reserva r : todasReservas) {
+            if (r.getIdCliente() == idCliente) {
+                reservasCliente.add(r);
+            }
+        }
+        return reservasCliente;
+    }
+
+    public static Reserva ObtenerReservaPorId(int id) {
+
+        Connection con = Conexion.conectar();
+        Reserva reserva = null;
+        if (Conexion.conectar() != null) {
+
+            //Hago la consulta
+            String consulta = "SELECT * FROM reserva where ID_Reserva = ? ";
+
+            try (PreparedStatement factura = con.prepareStatement(consulta)) {
+                factura.setInt(1,id);
+
+                //Guardo en resultado lo que me devuelve la base de datos
+
+                ResultSet resultado = factura.executeQuery();
+                while (resultado.next()) {
+                    reserva = new Reserva(
+                            resultado.getInt("ID_Plaza"),
+                            resultado.getInt("ID_Cliente"),
+                            resultado.getInt("ID_Coche"),
+                            resultado.getInt("ID_Plaza"),
+                            resultado.getTimestamp("Fecha_Entrada").toLocalDateTime(),
+                            resultado.getTimestamp("Fecha_Salida").toLocalDateTime(),
+                            resultado.getString("Estado"));
+
+                }
+            } catch (SQLException e) {
+
+                System.out.println("Error " + e.getMessage());
+
+            }
+        }
+
+        return reserva;
+    }
+
+    public static ObservableList<Reserva> listarReservas() {
+
+        ObservableList<Reserva> listaReservas = FXCollections.observableArrayList();
+        Connection con = Conexion.conectar();
+        if (Conexion.conectar() != null) {
+
+            //Hago la consulta
+            String consulta = "SELECT ID_Reserva,ID_Cliente,ID_Coche,ID_Plaza,Fecha_Entrada,Fecha_Salida,Estado FROM reserva WHERE Estado = ?";
+
+            try (PreparedStatement reserva = con.prepareStatement(consulta)) {
+                reserva.setString(1,"Activa");
+
+                //Guardo en resultado lo que me devuelve la base de datos
+
+                ResultSet resultado = reserva.executeQuery();
+                while (resultado.next()) {
+                    Reserva nuevaReserva = new Reserva(resultado.getInt("ID_Reserva"),
+                            resultado.getInt("ID_Cliente"),
+                            resultado.getInt("ID_Coche"),
+                            resultado.getInt("ID_Plaza"),
+                            resultado.getTimestamp("Fecha_Entrada").toLocalDateTime(),
+                            resultado.getTimestamp("Fecha_Salida").toLocalDateTime(),
+                            resultado.getString("Estado"));
+
+                    listaReservas.add(nuevaReserva);
+                }
+            } catch (SQLException e) {
+
+                System.out.println("Error " + e.getMessage());
+
+            }
+        }
+
+        return listaReservas;
+    }
+
+    public static boolean cambiarEstadoReserva(String nuevoEstado,int id){
+        Connection con = Conexion.conectar();
+
+        if (con != null) {
+            String modificacion = "UPDATE reserva SET Estado = ? WHERE ID_Reserva = ?";
+
+            try (PreparedStatement reserva = con.prepareStatement(modificacion)) {
+                reserva.setString(1, nuevoEstado);
+                reserva.setInt(2, id);
+
+                int filasAfectadas = reserva.executeUpdate();
+                return filasAfectadas > 0;
+
+            } catch (SQLException e) {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
+
+        return false;
     }
 
 }

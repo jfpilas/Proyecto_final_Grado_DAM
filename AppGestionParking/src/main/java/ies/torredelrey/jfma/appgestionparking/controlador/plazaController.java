@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class plazaController {
     @FXML
@@ -30,8 +31,8 @@ public class plazaController {
 
     private String nombreCliente;
     private String matriculaCoche;
-    private LocalDate fechaE;
-    private LocalDate fechaS;
+    private LocalDateTime fechaE;
+    private LocalDateTime fechaS;
 
 
 
@@ -47,13 +48,13 @@ public class plazaController {
         txtMatricula.setEditable(false);
     }
 
-    public void setFechaE(LocalDate fecha){
+    public void setFechaE(LocalDateTime fecha){
         this.fechaE = fecha;
         txtFechaE.setText(String.valueOf(fechaE));
         txtFechaE.setEditable(false);
     }
 
-    public void setFechaS(LocalDate fecha){
+    public void setFechaS(LocalDateTime fecha){
         this.fechaS = fecha;
         txtFechaS.setText(String.valueOf(fechaS));
         txtFechaS.setEditable(false);
