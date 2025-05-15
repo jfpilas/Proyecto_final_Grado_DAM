@@ -1,12 +1,11 @@
 package ies.torredelrey.jfma.appgestionparking.controlador;
 
-import ies.torredelrey.jfma.appgestionparking.DAO.ClienteDao;
-import ies.torredelrey.jfma.appgestionparking.DAO.FacturaDao;
-import ies.torredelrey.jfma.appgestionparking.DAO.PlazaDao;
-import ies.torredelrey.jfma.appgestionparking.DAO.ReservaDao;
+import ies.torredelrey.jfma.appgestionparking.DAO.*;
 import ies.torredelrey.jfma.appgestionparking.Gmail.CorreoElectronico;
+import ies.torredelrey.jfma.appgestionparking.PDF.FacturaPDF;
 import ies.torredelrey.jfma.appgestionparking.modelo.*;
 import ies.torredelrey.jfma.appgestionparking.util.FuncionesReutilizables;
+import ies.torredelrey.jfma.appgestionparking.util.Rutas;
 import ies.torredelrey.jfma.appgestionparking.util.TamanoImagenes;
 import ies.torredelrey.jfma.appgestionparking.vista.GestorParking;
 import javafx.collections.FXCollections;
@@ -18,24 +17,21 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class facturaController {
 
     ObservableList<String> listaModosPago = FXCollections.observableArrayList("Tarjeta","Efectivo","Transferencia");
-    ObservableList<Cliente> clientesReserva= FXCollections.observableArrayList();
-    ObservableList<Cliente> clienteEncontrado= FXCollections.observableArrayList();
+    ObservableList<ReservaCliente> clientesReserva= FXCollections.observableArrayList();
+    ObservableList<ReservaCliente> clienteEncontrado= FXCollections.observableArrayList();
     private int idclienteSeleccionado ;
     @FXML
     private Button btnBuscar;
-
-    @FXML
-    private Button btnCorreo;
-
-    @FXML
-    private Button btnImprimir;
 
     @FXML
     private Button btnGuardar;
@@ -50,24 +46,25 @@ public class facturaController {
     private ComboBox<String> cbxPago;
 
     @FXML
-    private TableView<Cliente> tClientes;
-    @FXML
-    private TableColumn<Cliente, String> colApellidos;
+    private TableView<ReservaCliente> tClientes;
 
     @FXML
-    private TableColumn<Cliente, String> colEmail;
+    private TableColumn<ReservaCliente, String> colApellidos;
 
     @FXML
-    private TableColumn<Cliente, String> colNombre;
+    private TableColumn<ReservaCliente, String> colEmail;
+
+    @FXML
+    private TableColumn<ReservaCliente, String> colNombre;
+
+    @FXML
+    private TableColumn<ReservaCliente,String> colIdCoche;
+
+    @FXML
+    private TableColumn<ReservaCliente,Integer> colIdReserva;
 
     @FXML
     private TextField txtBuscar;
-
-    @FXML
-    private ImageView imgCorreo;
-
-    @FXML
-    private ImageView imgImprimir;
 
     @FXML
     private ImageView imgGuardar;
@@ -96,25 +93,6 @@ public class facturaController {
         GestorParking.llenarCombo(cbxPago,listaModosPago);
     }
 
-    @FXML
-    void OnClickEmail(ActionEvent event) {
-
-        Cliente clienteSeleccionado = tClientes.getSelectionModel().getSelectedItem();
-        if(clienteSeleccionado == null){
-            FuncionesReutilizables.mostrarAlertaInformacion("Error","Debes seleccionar un cliente.");
-            return;
-        }
-        System.out.println(clienteSeleccionado);
-        String emailClienteSelecionado = clienteSeleccionado.getEmail();
-        String asunto = "Recibo de Factura (Hotel Alcázar)";
-        String descripcion = "TENGO QUE ENVIAR UNA FACTURA";
-
-        if(CorreoElectronico.enviarConGMail(emailClienteSelecionado,asunto,descripcion)){
-            FuncionesReutilizables.mostrarAlertaInformacion("Éxito","¡Correo enviado!");
-        }else{
-            FuncionesReutilizables.mostrarAlertaInformacion("Error","No se ha podido enviar el correo.");
-        }
-    }
 
     @FXML
     void onClickBuscar(ActionEvent event) {
@@ -130,24 +108,36 @@ public class facturaController {
 
             int id = clienteBuscado.getIdCliente();
             ObservableList<Reserva> reservas = ReservaDao.listarReservas();
-            ObservableList<Cliente> clientes = ClienteDao.listarClientesPorDni(id);
-            for(Reserva r : reservas){
-                if(id == r.getIdCliente()){
-                    clienteEncontrado.add(new Cliente(r.getIdCliente(),
-                            clienteBuscado.getDireccion(),
-                            clienteBuscado.getNombre(),
-                            clienteBuscado.getApellido(),
-                            clienteBuscado.getDni(),
-                            clienteBuscado.getFecha(),
-                            clienteBuscado.getEmail(),
-                            clienteBuscado.getTelefono()));
+            ObservableList<Cliente> clientes = ClienteDao.listarClientes();
+            ObservableList<Coche> coches = CocheDao.listarCoches();
+
+            Map<Integer, Cliente> clienteMap = new HashMap<>();
+            for (Cliente c : clientes) {
+                clienteMap.put(c.getIdCliente(), c);
+            }
+
+            Map<Integer, Coche> cocheMap = new HashMap<>();
+            for (Coche co : coches) {
+                cocheMap.put(co.getIdCoche(), co);
+            }
+            clienteEncontrado.clear();
+            for (Reserva r : reservas) {
+                if (r.getIdCliente() == id) {
+                    Cliente cliente = clienteMap.get(r.getIdCliente());
+                    Coche coche = cocheMap.get(r.getIdCoche());
+
+                    if (cliente != null && coche != null) {
+                        clienteEncontrado.add(new ReservaCliente(r, cliente, coche));
+                    }
                 }
             }
 
             if(!clienteEncontrado.isEmpty()){
-                this.colNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
-                this.colApellidos.setCellValueFactory(new PropertyValueFactory<>("Apellido"));
-                this.colEmail.setCellValueFactory(new PropertyValueFactory<>("Email"));
+                this.colNombre.setCellValueFactory(new PropertyValueFactory<>("NombreCliente"));
+                this.colApellidos.setCellValueFactory(new PropertyValueFactory<>("ApellidosCliente"));
+                this.colEmail.setCellValueFactory(new PropertyValueFactory<>("EmailCliente"));
+                this.colIdReserva.setCellValueFactory(new PropertyValueFactory<>("IdReserva") );
+                this.colIdCoche.setCellValueFactory(new PropertyValueFactory<>("MatriculaCoche") );
                 this.tClientes.setItems(clienteEncontrado);
                 txtBuscar.clear();
 
@@ -163,27 +153,32 @@ public class facturaController {
         clientesReserva.clear();
         ObservableList<Reserva> reservas = ReservaDao.listarReservas();
         ObservableList<Cliente> clientes = ClienteDao.listarClientes();
-        for (Reserva r : reservas){
-            for(Cliente c : clientes){
-                if(r.getIdCliente() == c.getIdCliente()){
-                    clientesReserva.add(new Cliente(
-                            r.getIdCliente(),
-                            c.getDireccion(),
-                            c.getNombre(),
-                            c.getApellido(),
-                            c.getDni(),
-                            c.getFecha(),
-                            c.getEmail(),
-                            c.getTelefono()));
-                }
-            }
+        ObservableList<Coche> coches = CocheDao.listarCoches();
 
+        Map<Integer, Cliente> clienteMap = new HashMap<>();
+        for (Cliente c : clientes) {
+            clienteMap.put(c.getIdCliente(), c);
         }
 
+        Map<Integer, Coche> cocheMap = new HashMap<>();
+        for (Coche co : coches) {
+            cocheMap.put(co.getIdCoche(), co);
+        }
+
+        for (Reserva r : reservas) {
+            Cliente cliente = clienteMap.get(r.getIdCliente());
+            Coche coche = cocheMap.get(r.getIdCoche());
+
+            if (cliente != null && coche != null) {
+                clientesReserva.add(new ReservaCliente(r, cliente, coche));
+            }
+        }
         if(!clientesReserva.isEmpty()){
-            this.colNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
-            this.colApellidos.setCellValueFactory(new PropertyValueFactory<>("Apellido"));
-            this.colEmail.setCellValueFactory(new PropertyValueFactory<>("Email"));
+            this.colNombre.setCellValueFactory(new PropertyValueFactory<>("NombreCliente"));
+            this.colApellidos.setCellValueFactory(new PropertyValueFactory<>("ApellidosCliente"));
+            this.colEmail.setCellValueFactory(new PropertyValueFactory<>("EmailCliente"));
+            this.colIdReserva.setCellValueFactory(new PropertyValueFactory<>("IdReserva") );
+            this.colIdCoche.setCellValueFactory(new PropertyValueFactory<>("MatriculaCoche") );
             this.tClientes.setItems(clientesReserva);
 
 
@@ -191,6 +186,7 @@ public class facturaController {
             FuncionesReutilizables.mostrarAlertaInformacion("Error","No hay Reservas para hacer factura");
             tClientes.getItems().clear(); //limpio los valores de la tabla
         }
+
     }
 
     @FXML
@@ -200,6 +196,7 @@ public class facturaController {
         String estado = "Pendiente";
         Factura nuevaFactura = new Factura(idclienteSeleccionado,idReserva,Float.parseFloat(txtTotal.getText()),LocalDateTime.parse(txtFechaEmision.getText()),estado);
 
+        System.out.println(nuevaFactura);
         if(FacturaDao.guardarFactura(nuevaFactura)){
             FuncionesReutilizables.mostrarAlertaInformacion("Éxito", "Factura creada y guardada correctamente");
 
@@ -224,52 +221,28 @@ public class facturaController {
         });
     }
 
-    private void mostrarFacturaSeleccionada(Cliente cliente) {
+    private void mostrarFacturaSeleccionada(ReservaCliente reservacliente) {
+        Cliente cliente = reservacliente.cliente;
+        Reserva reserva = reservacliente.reserva;
+
+        // Llenas los campos con los datos de la reserva
+        txtNumReserva.setText(String.valueOf(reserva.getIdReserva()));
+        txtEstado.setText(reserva.getEstado());
+
+        Plaza plaza = PlazaDao.ObtenerPlazaPorId(reserva.getIdPlaza());
+        float tarifaPlaza = plaza.getTarifa();
+        LocalDateTime entrada = reserva.getFechaEntrada();
+        LocalDateTime salida = reserva.getFechaSalida();
+        long dias = ChronoUnit.DAYS.between(entrada, salida);
+        float total = tarifaPlaza * dias;
+        txtTotal.setText(String.valueOf(total));
+
+        txtCliente.setText(cliente.getNombre() + " " + cliente.getApellido());
+        txtFechaEmision.setText(String.valueOf(LocalDateTime.now()));
         idclienteSeleccionado = cliente.getIdCliente();
-        //PREGUNTAR AL PROFE, NOSE COMO GESTIONAR ESTO EN CASO DE QUE HAYA MAS DE UNA PLAZA OCUPADA POR EL MISMO CLIENTE
-        LocalDateTime fecha = LocalDateTime.now();
-        ObservableList<Reserva> listaReserva = ReservaDao.obtenerReservasPorIdCliente(cliente.getIdCliente());
-        if(listaReserva.isEmpty()){
-            FuncionesReutilizables.mostrarAlertaInformacion("Error","No existen reservas del cliente seleccionado.");
-            return;
-        }
-        System.out.println(listaReserva);
-
-        for (Reserva r : listaReserva){
-            txtNumReserva.setText(String.valueOf(r.getIdReserva()));
-            txtEstado.setText(r.getEstado());
-            Plaza plaza = PlazaDao.ObtenerPlazaPorId(r.getIdPlaza());
-            float tarifaPlaza = plaza.getTarifa();
-            LocalDateTime entrada = r.getFechaEntrada();
-            LocalDateTime salida = r.getFechaSalida();
-            long dias = ChronoUnit.DAYS.between(entrada, salida);
-            float total = tarifaPlaza* dias;
-            txtTotal.setText(String.valueOf(total));
-        }
-
-
-        int indice = tClientes.getItems().indexOf(cliente);
-        System.out.println(indice);
-        txtCliente.setText(cliente.getNombre()+ " "+ cliente.getApellido());
-        txtFechaEmision.setText(String.valueOf(fecha));
-
 
     }
 
-
-    @FXML
-    void OnClickImprimir(ActionEvent event) {
-
-    }
-
-
-    public void setImagenCorreo(String ruta){
-       FuncionesReutilizables.ajustarImagenes(ruta,imgCorreo, TamanoImagenes.ANCHURAIMAGENBOTONES,TamanoImagenes.ALTURAIMAGENBOTONES);
-    }
-
-    public void setImagenImprimir(String ruta){
-        FuncionesReutilizables.ajustarImagenes(ruta,imgImprimir, TamanoImagenes.ANCHURAIMAGENBOTONES,TamanoImagenes.ALTURAIMAGENBOTONES);
-    }
 
     public void setImagenGuardar(String ruta){
         FuncionesReutilizables.ajustarImagenes(ruta,imgGuardar, TamanoImagenes.ANCHURAIMAGENBOTONES,TamanoImagenes.ALTURAIMAGENBOTONES);

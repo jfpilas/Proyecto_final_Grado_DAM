@@ -24,6 +24,7 @@ public class Rutas {
     public static String IMAGENCANCELAR = "/imagenes/boton-x.png";
     public static String IMAGENADMINISTRADOR = "/imagenes/hombre-de-negocios.png";
     public static String IMAGENRECEPCIONISTA = "/imagenes/recepcionista.png";
+    public static String IMAGENHOTEL = "/imagenes/home.jpg";
     public static String IMAGENCLIENTES = "/imagenes/audiencia.png";
 
 

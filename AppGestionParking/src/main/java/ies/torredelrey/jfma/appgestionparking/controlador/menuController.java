@@ -39,6 +39,12 @@ public class menuController {
     @FXML
     private MenuItem mniCoche;
 
+    @FXML
+    private MenuItem mniPagos;
+
+    @FXML
+    private MenuItem mniUsuario;
+
 
 
     @FXML
@@ -62,10 +68,8 @@ public class menuController {
     @FXML
     void onClickFactura(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(GestorParking.class.getResource(Rutas.FACTURAS));
-        AnchorPane root = loader.load(); // Esto inicializa todos los @FXML
+        AnchorPane root = loader.load();
         facturaController controller = loader.getController();
-        controller.setImagenCorreo(Rutas.IMAGENCORREO);
-        controller.setImagenImprimir(Rutas.IMAGENIMPRIMIR);
         controller.setImagenGuardar(Rutas.IMAGENGUARDAR);
         controller.setImagenBuscar(Rutas.IMAGENBUSCAR);
         controller.setImagenRefrescar(Rutas.IMAGENREFRESCAR);
@@ -143,7 +147,9 @@ public class menuController {
     void onClickCambiaRol(ActionEvent event) throws IOException {
         Stage stage = (Stage) imgAlcazar.getScene().getWindow();
         FuncionesReutilizables.mostrarAlertaConfirmacionSalir("Confirmación de salida","¿Estás seguro de que quieres cambiar de rol?",stage);
+
     }
+
 
     @FXML
     void OnClickCoche(ActionEvent event) throws IOException {
@@ -155,6 +161,34 @@ public class menuController {
     stage.setScene(escena);
     stage.setTitle("Añadir coche");
     stage.show();
+    }
+
+    public void setMniCliente(boolean visibilidad){
+        mniCliente.setVisible(visibilidad);
+    }
+
+    public void setMniFactura(boolean visibilidad){
+        mniFactura.setVisible(visibilidad);
+    }
+
+    public void setMniParking(boolean visibilidad){
+        mniParking.setVisible(visibilidad);
+    }
+
+    public  void setMniCoche(boolean visibilidad){
+        mniCoche.setVisible(visibilidad);
+    }
+
+    public void setMniCambiaRol(boolean visibilidad){
+        mniCambiaRol.setVisible(visibilidad);
+    }
+
+    public void setMniPagos(boolean visibilidad){
+        mniPagos.setVisible(visibilidad);
+    }
+
+    public void  setMniUsuario(boolean visibilidad){
+        mniUsuario.setVisible(visibilidad);
     }
 
 }

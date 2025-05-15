@@ -10,14 +10,16 @@ public class FacturaPago {
     private float total;
     private LocalDateTime fecha;
     private String estado;
+    private String matricula;
 
-    public FacturaPago(String cliente, int reserva, float total, LocalDateTime fecha, String estado,int idfactura) {
+    public FacturaPago(String cliente, int reserva, float total, LocalDateTime fecha, String estado,int idfactura,String matricula) {
         this.cliente = cliente;
         Reserva = reserva;
         this.total = total;
         this.fecha = fecha;
         this.estado = estado;
         this.idfactura = idfactura;
+        this.matricula = matricula;
     }
 
     @Override
@@ -30,6 +32,10 @@ public class FacturaPago {
         sb.append(", estado='").append(estado).append('\'');
         sb.append('}');
         return sb.toString();
+    }
+
+    public String getMatricula() {
+        return matricula;
     }
 
     public String getCliente() {

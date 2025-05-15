@@ -1,6 +1,7 @@
 package ies.torredelrey.jfma.appgestionparking.DAO;
 
 import ies.torredelrey.jfma.appgestionparking.conexionBBDD.Conexion;
+import ies.torredelrey.jfma.appgestionparking.modelo.Factura;
 import ies.torredelrey.jfma.appgestionparking.modelo.Pago;
 import ies.torredelrey.jfma.appgestionparking.util.FuncionesReutilizables;
 
@@ -54,5 +55,35 @@ public class PagoDao {
         }
 
         return true;
+    }
+
+    public static Pago buscaPagoPorIdFactura(int idFactura) throws SQLException {
+        Pago pago = null;
+        Connection con = Conexion.conectar();
+        if (con != null) {
+            String buscar = "SELECT * FROM pago where ID_Factura = ?";
+
+            try (PreparedStatement nuevo = con.prepareStatement(buscar)) {
+                nuevo.setInt(1, idFactura);
+
+                    //Guardo en resultado lo que me devuelve la base de datos
+
+                    ResultSet resultado = nuevo.executeQuery();
+                    while (resultado.next()) {
+                        pago = new Pago(
+                                resultado.getInt("ID_Factura"),
+                                resultado.getInt("Monto_Pagado"),
+                                resultado.getTimestamp("Fecha_Pago").toLocalDateTime(),
+                                resultado.getString("Metodo_Pago"));
+
+
+                    }
+            } catch (SQLException e) {
+                // Si ocurre una excepción en la consulta, imprimir error y devolver false
+                e.printStackTrace();
+            }
+
+        }
+        return pago;
     }
 }

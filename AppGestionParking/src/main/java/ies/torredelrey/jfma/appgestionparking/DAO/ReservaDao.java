@@ -47,7 +47,7 @@ public class ReservaDao {
         if(Conexion.conectar() != null){
 
             //Hago la consulta
-            String consulta = "SELECT ID_Reserva, ID_Cliente,ID_Coche,ID_Plaza,Fecha_Entrada,Fecha_Salida,Estado FROM reserva WHERE ID_Plaza = ?  ";
+            String consulta = "SELECT ID_Reserva, ID_Cliente,ID_Coche,ID_Plaza,Fecha_Entrada,Fecha_Salida,Estado FROM reserva WHERE ID_Plaza = ? AND Estado = 'Activa' ";
 
             try (PreparedStatement reserva = con.prepareStatement(consulta)) {
 

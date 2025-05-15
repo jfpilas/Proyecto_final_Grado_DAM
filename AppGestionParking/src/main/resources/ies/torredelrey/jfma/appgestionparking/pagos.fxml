@@ -14,13 +14,14 @@
 
 <AnchorPane prefHeight="720.0" prefWidth="964.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ies.torredelrey.jfma.appgestionparking.controlador.pagosController">
    <children>
-      <TableView fx:id="tFacturas" layoutX="170.0" layoutY="146.0" prefHeight="290.0" prefWidth="571.0">
+      <TableView fx:id="tFacturas" layoutX="170.0" layoutY="146.0" prefHeight="290.0" prefWidth="647.0">
         <columns>
           <TableColumn fx:id="colCliente" prefWidth="117.60003662109375" text="Cliente" />
           <TableColumn fx:id="colReserva" prefWidth="82.39996337890625" text="Reserva" />
             <TableColumn fx:id="colTotal" prefWidth="95.199951171875" text="Total Factura" />
             <TableColumn fx:id="colFecha" prefWidth="139.20001220703125" text="Fecha_Emitida" />
             <TableColumn fx:id="colEstado" prefWidth="135.2000732421875" text="Estado" />
+            <TableColumn fx:id="colMatricula" prefWidth="75.0" text="Matricula" />
             <TableColumn fx:id="colIdFactura" prefWidth="75.0" text="IdFactura" />
         </columns>
       </TableView>

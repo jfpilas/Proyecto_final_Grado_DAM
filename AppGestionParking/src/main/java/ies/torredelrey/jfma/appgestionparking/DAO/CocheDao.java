@@ -2,6 +2,7 @@ package ies.torredelrey.jfma.appgestionparking.DAO;
 
 import ies.torredelrey.jfma.appgestionparking.conexionBBDD.Conexion;
 import ies.torredelrey.jfma.appgestionparking.modelo.Coche;
+import ies.torredelrey.jfma.appgestionparking.modelo.Reserva;
 import ies.torredelrey.jfma.appgestionparking.modelo.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -82,6 +83,41 @@ public class CocheDao {
 
         }
         return false;
+    }
+
+    public static ObservableList<Coche> listarCoches() {
+
+        ObservableList<Coche> listaCoches = FXCollections.observableArrayList();
+        Connection con = Conexion.conectar();
+        if (Conexion.conectar() != null) {
+
+            //Hago la consulta
+            String consulta = "SELECT * FROM coche ";
+
+            try (PreparedStatement coche = con.prepareStatement(consulta)) {
+
+                //Guardo en resultado lo que me devuelve la base de datos
+
+                ResultSet resultado = coche.executeQuery();
+                while (resultado.next()) {
+                    Coche nuevoCoche = new Coche(resultado.getInt("ID_Coche"),
+                            resultado.getInt("ID_Cliente"),
+                            resultado.getString("Matricula"),
+                            resultado.getString("Marca"),
+                            resultado.getString("Modelo"),
+                            resultado.getString("Color"),
+                            resultado.getString("Tipo"));
+
+                    listaCoches.add(nuevoCoche);
+                }
+            } catch (SQLException e) {
+
+                System.out.println("Error " + e.getMessage());
+
+            }
+        }
+
+        return listaCoches;
     }
 
     public static boolean modificarCoche(Coche coche){

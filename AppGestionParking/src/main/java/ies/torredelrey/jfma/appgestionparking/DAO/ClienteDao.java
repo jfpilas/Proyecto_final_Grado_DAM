@@ -158,9 +158,9 @@ public class ClienteDao {
                 ResultSet resultado = factura.executeQuery();
                 while (resultado.next()) {
                     cliente = new Cliente(
+                            resultado.getString("Direccion"),
                             resultado.getString("Nombre"),
                             resultado.getString("Apellido"),
-                            resultado.getString("Direccion"),
                             resultado.getString("Dni"),
                             resultado.getDate("Fecha_Nacimiento").toLocalDate(),
                             resultado.getString("Email"),

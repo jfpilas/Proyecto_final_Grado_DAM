@@ -1,11 +1,11 @@
 package ies.torredelrey.jfma.appgestionparking.controlador;
 
 import ies.torredelrey.jfma.appgestionparking.DAO.*;
-import ies.torredelrey.jfma.appgestionparking.modelo.Factura;
-import ies.torredelrey.jfma.appgestionparking.modelo.FacturaPago;
-import ies.torredelrey.jfma.appgestionparking.modelo.Pago;
-import ies.torredelrey.jfma.appgestionparking.modelo.Reserva;
+import ies.torredelrey.jfma.appgestionparking.Gmail.CorreoElectronico;
+import ies.torredelrey.jfma.appgestionparking.PDF.FacturaPDF;
+import ies.torredelrey.jfma.appgestionparking.modelo.*;
 import ies.torredelrey.jfma.appgestionparking.util.FuncionesReutilizables;
+import ies.torredelrey.jfma.appgestionparking.util.Rutas;
 import ies.torredelrey.jfma.appgestionparking.vista.GestorParking;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,6 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 
+import java.io.File;
 import java.sql.SQLException;
 import java.sql.SQLOutput;
 import java.time.LocalDate;
@@ -33,6 +34,7 @@ public class pagosController {
     ObservableList<FacturaPago> listaFacturaPago = null;
 
     private int posicionFacturaPagoTabla;
+    String matricula ="";
     int idreserva= -1;
     int idPlaza= -1;
 
@@ -80,6 +82,46 @@ public class pagosController {
 
     @FXML
     private TableView<FacturaPago> tFacturas;
+
+    @FXML
+    private TableColumn<FacturaPago, String> colMatricula;
+
+
+
+    public void enviarEmail(int idFactura) {
+
+        Factura factura = FacturaDao.buscarFacturaPorFacturaID(idFactura);
+        int idCliente = factura.getidCliente();
+        if(idCliente <= 0){
+            FuncionesReutilizables.mostrarAlertaInformacion("Error","Debes seleccionar un cliente.");
+            return;
+        }
+        System.out.println(idCliente);
+        Cliente cliente = ClienteDao.ObtenerClientePorId(idCliente);
+        String emailClienteSelecionado = cliente.getEmail();
+        String asunto = "Recibo de Factura (Hotel Alcázar)";
+        String descripcion = "Adjunto su factura correspondiente.Gracias por su visita y espero que haya tenido un trato estupendo.";
+        String userHome = System.getProperty("user.home");
+        String rutaFactura = userHome + "/AppParking/facturas/factura_"+ txtIdFactura.getText() +".pdf";
+        if(CorreoElectronico.enviarConGMail(emailClienteSelecionado,asunto,descripcion,rutaFactura)){
+            FuncionesReutilizables.mostrarAlertaInformacion("Éxito","¡Correo enviado!");
+        }else{
+            FuncionesReutilizables.mostrarAlertaInformacion("Error","No se ha podido enviar el correo.");
+        }
+    }
+
+    private void OnClickImprimir() throws SQLException {
+        String userHome = System.getProperty("user.home");
+        String rutaFactura = userHome + "/AppParking/facturas/factura_"+ txtIdFactura.getText() +".pdf";
+        System.out.println(rutaFactura);
+        Factura factura = FacturaDao.buscarFacturaPorFacturaID(Integer.parseInt(txtIdFactura.getText()));
+        Cliente cliente = ClienteDao.ObtenerClientePorId(factura.getidCliente());
+        Pago pago = PagoDao.buscaPagoPorIdFactura(factura.getIdfactura());
+        System.out.println(cliente.getNombre());
+        System.out.println(cliente.getApellido());
+        FacturaPDF.generarFactura(rutaFactura,Integer.parseInt(txtIdFactura.getText()),cliente.getNombre()+" "+ cliente.getApellido(),pago.getFecha_pago(),Float.parseFloat(txtTotal.getText()), matricula);
+        matricula="";
+    }
 
 
     @FXML
@@ -158,8 +200,12 @@ public class pagosController {
                 float totalf = f.getTotal();
                 LocalDateTime fechaf = f.getFecha_emision();
                 String estadof = f.getEstado();
+                int idReserva = f.getidReserva();
+                Reserva reservaNueva = ReservaDao.ObtenerReservaPorId(idReserva);
+                int idCoche = reservaNueva.getIdCoche();
+                String matricula = CocheDao.obtenerMatriculaCochePorId(idCoche);
                 int idfacturaf = f.getIdfactura();
-                listaFacturaPago.add(new FacturaPago(nombre, idPlaza, totalf, fechaf, estadof, idfacturaf));
+                listaFacturaPago.add(new FacturaPago(nombre, idPlaza, totalf, fechaf, estadof, idfacturaf,matricula));
 
                 // Actualizar el estado de la plaza y reserva
                 PlazaDao.cambiarEstadoPlaza("Libre", idPlaza);
@@ -173,7 +219,12 @@ public class pagosController {
 
         // Actualizar la vista con las facturas pendientes
         tFacturas.setItems(listaFacturaPago);
+        OnClickImprimir();
+
+        enviarEmail(Integer.parseInt(txtIdFactura.getText()));
         limpiarCampos();
+        actualizarTabla();
+
 
     }
 
@@ -181,6 +232,12 @@ public class pagosController {
     @FXML
     void onClickBuscar(ActionEvent event) {
 
+        actualizarTabla();
+
+
+    }
+
+    public void actualizarTabla(){
         String comboEstados = cbxEstado.getValue();
         if(comboEstados == null){
             FuncionesReutilizables.mostrarAlertaInformacion("Error","Elige como quieres buscar las facturas con el seleccionador, gracias.");
@@ -203,8 +260,12 @@ public class pagosController {
             float total = f.getTotal();
             LocalDateTime fecha= f.getFecha_emision();
             String estado = f.getEstado();
+            int idReserva = f.getidReserva();
+            Reserva reservaNueva = ReservaDao.ObtenerReservaPorId(idReserva);
+            int idCoche = reservaNueva.getIdCoche();
+            String matricula = CocheDao.obtenerMatriculaCochePorId(idCoche);
             int idfactura= f.getIdfactura();
-            listaFacturaPago.add(new FacturaPago(nombre,idplaza,total,fecha,estado,idfactura));
+            listaFacturaPago.add(new FacturaPago(nombre,idreserva,total,fecha,estado,idfactura,matricula));
 
         }
 
@@ -215,6 +276,7 @@ public class pagosController {
             this.colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
             this.colFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
             this.colEstado.setCellValueFactory(new PropertyValueFactory<>("estado"));
+            this.colMatricula.setCellValueFactory(new PropertyValueFactory<>("matricula"));
             this.tFacturas.setItems(listaFacturaPago);
 
             panelPagarFactura.setVisible(!Objects.equals(cbxEstado.getValue(), "Pagada"));
@@ -224,8 +286,6 @@ public class pagosController {
             FuncionesReutilizables.mostrarAlertaInformacion("Error","No existen Facturas con ese estado " + cbxEstado.getValue());
             tFacturas.getItems().clear(); //limpio los valores de la tabla
         }
-
-
     }
 
     protected void configurarSeleccionTabla() {
@@ -241,6 +301,7 @@ public class pagosController {
         txtIdFactura.setText(String.valueOf(facturaPago.getIdfactura()));
         txtFecha.setText(String.valueOf(facturaPago.getFecha()));
         txtTotal.setText(String.valueOf(facturaPago.getTotal()));
+        matricula = facturaPago.getMatricula();
 
     }
 

@@ -293,6 +293,7 @@ public class parkingController {
         Reserva verificar = null;
         if(PlazaDao.devuelvePlaza(plaza.getText()) != null){
             Plaza plazaclicada = PlazaDao.devuelvePlaza(plaza.getText());
+            assert plazaclicada != null;
             int id_plaza = plazaclicada.getIdPlaza();
 
             // Verificar si la plaza ya está reservada

@@ -9,13 +9,15 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="683.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ies.torredelrey.jfma.appgestionparking.controlador.facturaController">
+<AnchorPane prefHeight="700.0" prefWidth="685.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ies.torredelrey.jfma.appgestionparking.controlador.facturaController">
    <children>
-      <TableView fx:id="tClientes" layoutX="47.0" layoutY="78.0" prefHeight="200.0" prefWidth="512.0">
+      <TableView fx:id="tClientes" layoutX="47.0" layoutY="78.0" prefHeight="200.0" prefWidth="586.0">
         <columns>
           <TableColumn fx:id="colNombre" prefWidth="144.00006103515625" text="Nombre del Cliente" />
           <TableColumn fx:id="colApellidos" minWidth="0.0" prefWidth="155.99993896484375" text="Apellidos" />
-            <TableColumn fx:id="colEmail" prefWidth="210.4000244140625" text="Email" />
+            <TableColumn fx:id="colEmail" prefWidth="210.39999389648438" text="Email" />
+            <TableColumn fx:id="colIdCoche" prefWidth="75.0" text="Matrícula" />
+            <TableColumn fx:id="colIdReserva" prefWidth="75.0" text="IDRESERVA" />
         </columns>
       </TableView>
       <Button fx:id="btnRefrescar" layoutX="465.0" layoutY="27.0" mnemonicParsing="false" onAction="#onClickResfrescar" prefHeight="26.0" prefWidth="93.0" text="Refrescar">
@@ -44,14 +46,6 @@
       <Button fx:id="btnGuardar" layoutX="277.0" layoutY="614.0" mnemonicParsing="false" onAction="#OnClickGuardar" text="Guardar">
          <graphic>
             <ImageView fx:id="imgGuardar" fitHeight="17.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
-         </graphic></Button>
-      <Button fx:id="btnCorreo" layoutX="113.0" layoutY="614.0" mnemonicParsing="false" onAction="#OnClickEmail" text="Enviar al correo">
-         <graphic>
-            <ImageView fx:id="imgCorreo" fitHeight="17.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
-         </graphic></Button>
-      <Button fx:id="btnImprimir" layoutX="385.0" layoutY="614.0" mnemonicParsing="false" onAction="#OnClickImprimir" text="Imprimir pdf">
-         <graphic>
-            <ImageView fx:id="imgImprimir" fitHeight="17.0" fitWidth="23.0" pickOnBounds="true" preserveRatio="true" />
          </graphic></Button>
       <TextField fx:id="txtEstado" layoutX="331.0" layoutY="565.0" />
       <TextField fx:id="txtNumReserva" layoutX="332.0" layoutY="388.0" />

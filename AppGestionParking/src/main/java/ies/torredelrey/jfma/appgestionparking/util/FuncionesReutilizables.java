@@ -43,6 +43,10 @@ public class FuncionesReutilizables {
             }else{
                 FXMLLoader loader = new FXMLLoader(rolesController.class.getResource(Rutas.ROLES));
                 AnchorPane root = loader.load();
+                rolesController controller = loader.getController();
+                controller.setImagenAdmin(Rutas.IMAGENADMINISTRADOR);
+                controller.setImagenRecepcionista(Rutas.IMAGENRECEPCIONISTA);
+                controller.setImgClientes(Rutas.IMAGENCLIENTES);
                 Scene nuevaEscena = new Scene(root);
                 actual.setScene(nuevaEscena);
             }

@@ -14,6 +14,43 @@ import java.sql.SQLException;
 
 public class FacturaDao {
 
+
+    public static Factura buscarFacturaPorFacturaID(int factura) {
+
+        Factura nueva = null;
+        Connection con = Conexion.conectar();
+        if (con != null) {
+
+            //Hago la consulta
+            String consulta = "SELECT ID_Factura,ID_Cliente,ID_Reserva,Monto_Total,Fecha_Emision,Estado FROM factura where ID_Factura = ? ";
+
+            try (PreparedStatement factur = con.prepareStatement(consulta)) {
+                factur.setInt(1,factura);
+
+                //Guardo en resultado lo que me devuelve la base de datos
+
+                ResultSet resultado = factur.executeQuery();
+                while (resultado.next()) {
+                    nueva = new Factura(
+                            resultado.getInt("ID_Cliente"),
+                            resultado.getInt("ID_Reserva"),
+                            resultado.getFloat("Monto_Total"),
+                            resultado.getTimestamp("Fecha_Emision").toLocalDateTime(),
+                            resultado.getString("Estado"),
+                            resultado.getInt("ID_Factura"));
+
+
+                }
+            } catch (SQLException e) {
+
+                System.out.println("Error " + e.getMessage());
+
+            }
+        }
+
+        return nueva;
+    }
+
     public static ObservableList<Factura> listarFacturas(String estado) {
 
         ObservableList<Factura> listaFacturas = FXCollections.observableArrayList();

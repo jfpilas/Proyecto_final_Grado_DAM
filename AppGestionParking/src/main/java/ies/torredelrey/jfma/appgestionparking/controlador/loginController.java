@@ -2,6 +2,7 @@ package ies.torredelrey.jfma.appgestionparking.controlador;
 
 import ies.torredelrey.jfma.appgestionparking.DAO.UsuarioDao;
 import ies.torredelrey.jfma.appgestionparking.modelo.Usuario;
+import ies.torredelrey.jfma.appgestionparking.util.FuncionesReutilizables;
 import ies.torredelrey.jfma.appgestionparking.util.Rutas;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -61,6 +62,7 @@ public class loginController {
         if(nuevo == null){
             lblError.setTextFill(Color.RED);
             lblError.setText("Usuario o contraseña incorrectas");
+            FuncionesReutilizables.mostrarAlertaInformacion("Error","Usuario o contraseña incorrectas");
             return;
         }
 
@@ -79,13 +81,16 @@ public class loginController {
                     cargarHomeRecepcionista();
                     break;
                 case "Cliente":
-                    cargarHomeCliente();
+                    cargarHomeCliente(false,false,false,false,false,false);
                     break;
                 default:
                     System.out.println("Rol no reconocido.");
                     break;
             }
             stageSelecionada.close();
+        }
+        if(!rol.equals(botonSeleccionado.getText())){
+            FuncionesReutilizables.mostrarAlertaInformacion("Error", "Estas intentando acceder con tu contraseña y usuario en otro rol diferente.");
         }
 
     }
@@ -119,14 +124,20 @@ public class loginController {
     }
 
     private void cargarHomeRecepcionista(){
-        cargarHomeCliente();
+        cargarHomeCliente(true,false,true,true,true,true);
     }
 
-    public static void cargarHomeCliente() {
+    public static void cargarHomeCliente(boolean visibilidad1,boolean visibilidad2,boolean visibilidad3,boolean visibilidad4,boolean visibilidad5,boolean visibilidad6) {
         try {
             FXMLLoader loader = new FXMLLoader(loginController.class.getResource(Rutas.HOME));
             AnchorPane root = loader.load();
-
+            menuController controller = loader.getController();
+            controller.setMniCliente(visibilidad1);
+            controller.setMniUsuario(visibilidad2);
+            controller.setMniCoche(visibilidad3);
+            controller.setMniCambiaRol(visibilidad4);
+            controller.setMniFactura(visibilidad5);
+            controller.setMniPagos(visibilidad6);
             // Obtener el escenario actual y cambiar la escena
             Scene scene = new Scene(root);
             Stage stage = new Stage();

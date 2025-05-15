@@ -54,32 +54,32 @@ public class rolesController {
 
     @FXML
     void btnRolClientes(ActionEvent event) {
-       loginController.cargarHomeCliente();
+       loginController.cargarHomeCliente(false,false,false,false,false,false);
         Stage stageRoles = (Stage) rolAdmin.getScene().getWindow();
         stageRoles.close();
     }
 
 
-    protected void cargarSelectorRoles() {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource(Rutas.ROLES));
-            AnchorPane root = loader.load();
-
-            loginController controladorLogin = loader.getController();
-            controladorLogin.setBotonSeleccionado(botonSeleccionado);
-
-            // Mostrar la nueva ventana
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.setTitle("Iniciar Sesión");
-            stage.setResizable(false);
-            stage.setOnCloseRequest(e -> e.consume());
-            stage.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    protected void cargarSelectorRoles() {
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource(Rutas.ROLES));
+//            AnchorPane root = loader.load();
+//
+//            loginController controladorLogin = loader.getController();
+//            controladorLogin.setBotonSeleccionado(botonSeleccionado);
+//
+//            // Mostrar la nueva ventana
+//            Stage stage = new Stage();
+//            stage.setScene(new Scene(root));
+//            stage.setTitle("Iniciar Sesión");
+//            stage.setResizable(false);
+//            stage.setOnCloseRequest(e -> e.consume());
+//            stage.show();
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
 
     private void cargarLogin() {
         try {
