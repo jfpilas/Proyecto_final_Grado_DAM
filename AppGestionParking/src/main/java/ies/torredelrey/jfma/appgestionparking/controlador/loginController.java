@@ -88,6 +88,7 @@ public class loginController {
                     break;
             }
             stageSelecionada.close();
+            System.out.println(stageSelecionada);
         }
         if(!rol.equals(botonSeleccionado.getText())){
             FuncionesReutilizables.mostrarAlertaInformacion("Error", "Estas intentando acceder con tu contraseña y usuario en otro rol diferente.");
@@ -125,6 +126,8 @@ public class loginController {
 
     private void cargarHomeRecepcionista(){
         cargarHomeCliente(true,false,true,true,true,true);
+        Stage stage = (Stage) btnLoginIniciar.getScene().getWindow();
+        stage.close();
     }
 
     public static void cargarHomeCliente(boolean visibilidad1,boolean visibilidad2,boolean visibilidad3,boolean visibilidad4,boolean visibilidad5,boolean visibilidad6) {
@@ -138,6 +141,8 @@ public class loginController {
             controller.setMniCambiaRol(visibilidad4);
             controller.setMniFactura(visibilidad5);
             controller.setMniPagos(visibilidad6);
+
+
             // Obtener el escenario actual y cambiar la escena
             Scene scene = new Scene(root);
             Stage stage = new Stage();
@@ -152,6 +157,5 @@ public class loginController {
             e.printStackTrace();
         }
     }
-
 
 }

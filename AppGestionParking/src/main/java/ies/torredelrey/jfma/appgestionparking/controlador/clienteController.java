@@ -58,9 +58,11 @@ public class clienteController {
     @FXML
     private ImageView imgGuardar;
 
+    @FXML
+    private ImageView imgBuscar;
 
     @FXML
-    private Button btnBuscar;
+    private ImageView imgAddCliente;
 
     @FXML
     private ComboBox<String> cbxBuscar;
@@ -283,7 +285,7 @@ public class clienteController {
     }
 
     @FXML
-    void OnClickEliminar(ActionEvent event) {
+    void OnClickEliminar(ActionEvent event) throws IOException {
 
         Coche cocheSeleccionado = tblCoche.getSelectionModel().getSelectedItem();
 
@@ -291,12 +293,14 @@ public class clienteController {
             FuncionesReutilizables.mostrarAlertaInformacion("Error", "Debes seleccionar un coche de la tabla.");
             return;
         }
-
-        if(CocheDao.eliminarCoche(cocheSeleccionado)){
-            FuncionesReutilizables.mostrarAlertaInformacion("Éxito","Coche eliminado correctamente.");
-        }else{
-            FuncionesReutilizables.mostrarAlertaInformacion("Error","No se ha podido eliminar el coche.");
+        if(FuncionesReutilizables.mostrarAlertaConfirmacionCancelar("Eliminar","¿Estás seguro que deseas eliminar el coche seleccionado?")){
+            if(CocheDao.eliminarCoche(cocheSeleccionado)){
+                FuncionesReutilizables.mostrarAlertaInformacion("Éxito","Coche eliminado correctamente.");
+            }else{
+                FuncionesReutilizables.mostrarAlertaInformacion("Error","No se ha podido eliminar el coche.");
+            }
         }
+
     }
 
     @FXML
@@ -335,6 +339,14 @@ public class clienteController {
         txtDireccionCliente.setText("");
         txtEmailCliente.setText("");
         txtTelefonoCliente.setText("");
+    }
+
+    public void setImagenAddCliente(String ruta){
+        FuncionesReutilizables.ajustarImagenes(ruta,imgAddCliente,TamanoImagenes.ANCHURAIMAGENGRANDECLIENTE,TamanoImagenes.ALTURAIMAGENGRANDECLIENTE);
+    }
+
+    public void setImagenBuscar(String ruta){
+        FuncionesReutilizables.ajustarImagenes(ruta,imgBuscar, TamanoImagenes.ANCHURAIMAGENBOTONES,TamanoImagenes.ALTURAIMAGENBOTONES);
     }
 
     public void setImagenModificar(String ruta){

@@ -6,9 +6,12 @@ import ies.torredelrey.jfma.appgestionparking.DAO.CocheDao;
 import ies.torredelrey.jfma.appgestionparking.DAO.PlazaDao;
 import ies.torredelrey.jfma.appgestionparking.DAO.ReservaDao;
 import ies.torredelrey.jfma.appgestionparking.modelo.Cliente;
+import ies.torredelrey.jfma.appgestionparking.modelo.Coche;
+import ies.torredelrey.jfma.appgestionparking.modelo.Plaza;
 import ies.torredelrey.jfma.appgestionparking.modelo.Reserva;
 import ies.torredelrey.jfma.appgestionparking.util.FuncionesReutilizables;
 import ies.torredelrey.jfma.appgestionparking.util.Validaciones;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -20,6 +23,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Optional;
 
 public class reservaController {
@@ -55,6 +59,7 @@ public class reservaController {
         this.numeroPlaza = numeroPlaza;
         if (txtNumPlaza != null) {
             txtNumPlaza.setText(numeroPlaza);
+            txtNumPlaza.setEditable(false);
         }
     }
 
@@ -106,6 +111,9 @@ public class reservaController {
             LocalDateTime fechaSalidaHora =LocalDateTime.of(fechaSalida, LocalTime.now());
 
             Reserva verificacion = ReservaDao.verificacionPlazaReservada(IdPlaza);
+
+            Plaza nueva = PlazaDao.ObtenerPlazaPorId(IdPlaza);
+            String tipoplaza = nueva.getTipo();
             if(verificacion!= null){
                 FuncionesReutilizables.mostrarAlertaInformacion("Error","Esta plaza no está disponible para reservar , ya está ocupada");
                 return;
@@ -133,6 +141,10 @@ public class reservaController {
 
                 return;
             }
+            if(fechaEntrada.isBefore(LocalDate.now())|| fechaSalida.isBefore(fechaEntrada)){
+                FuncionesReutilizables.mostrarAlertaInformacion("Error","No puedes marcar una fecha anterior a la de hoy para realizar una reserva o marcar una hora de salida anterior a la de entrada.");
+                return;
+            }
 
             HashMap<String,Integer> resultadoIds = ReservaDao.obtenerIdClienteYCoche(dni,matricula);
 
@@ -144,10 +156,39 @@ public class reservaController {
                         fechaSalidaHora
                 );
 
+                int id = resultadoIds.get("idCoche");
+                ObservableList<Coche> nuevo = CocheDao.listarCoches();
+                Coche seleccionado = null;
+                for (Coche c : nuevo){
+                    if(c.getIdCoche()== id){
+                        seleccionado = new Coche(c.getMatricula(),c.getMarca(),c.getModelo(),c.getColor(),c.getTipo());
+                    }
+                }
+                assert seleccionado != null;
+                if(!tipoplaza.equals(seleccionado.getTipo())){
+                    FuncionesReutilizables.mostrarAlertaInformacion("Error", "No es compatible el tipo de coche con el tipo de plaza que quieres reservar. Por favor elije otra. Gracias.");
+                    return;
+                }
 
+                if (ReservaDao.cocheYaReservadoEnFecha(resultadoIds.get("idCoche"), fechaEntradaHora, fechaSalidaHora)) {
+                    FuncionesReutilizables.mostrarAlertaInformacion("Error", "Este coche ya tiene una reserva activa en ese periodo.");
+                    return;
+                }
+
+                int totalReservasConIDcoche= ReservaDao.verificacionPlazaReservadaPorMismoCoche(nuevaReserva.getIdCoche());
+                if(totalReservasConIDcoche > 0){
+                    FuncionesReutilizables.mostrarAlertaInformacion("Error", "Ya existe una reserva con ese coche, revísalo.");
+                    return;
+                }
                 boolean exito = ReservaDao.guardarReserva(nuevaReserva);
 
+
                 if (exito) {
+                    if(nuevaReserva.getFechaEntrada().isAfter(LocalDateTime.now())){
+                        PlazaDao.cambiarEstadoPlaza("Reservada",nuevaReserva.getIdPlaza());
+                    }else{
+                        PlazaDao.cambiarEstadoPlaza("Ocupada",nuevaReserva.getIdPlaza());
+                    }
                     Alert mensajeExito = new Alert(Alert.AlertType.INFORMATION);
 
                     mensajeExito.setTitle("Éxito");
@@ -168,7 +209,8 @@ public class reservaController {
                     if (opcion1.get() == btnVale) {
                         mensajeExito.close();
                         //Si el guardado es exitoso entonces cambio la plaza a ocupada
-                        PlazaDao.cambiarEstadoPlaza("Ocupada",IdPlaza);
+
+
 
                     }
                 }

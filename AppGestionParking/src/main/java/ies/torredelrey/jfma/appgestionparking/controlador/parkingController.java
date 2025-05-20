@@ -160,52 +160,52 @@ public class parkingController {
 
     @FXML
     void OnClickPlaza3(ActionEvent event) throws IOException {
-        abrirVentanaReserva("Reserva",plaza3);
+        seleccionVentanaSegunReserva(plaza3);
     }
 
     @FXML
     void OnClickPlaza4(ActionEvent event) throws IOException {
-        abrirVentanaReserva("Reserva",plaza4);
+        seleccionVentanaSegunReserva(plaza4);
     }
 
     @FXML
     void OnClickPlaza5(ActionEvent event) throws IOException {
-        abrirVentanaReserva("Reserva",plaza5);
+        seleccionVentanaSegunReserva(plaza5);
     }
 
     @FXML
     void OnClickPlaza6(ActionEvent event) throws IOException {
-        abrirVentanaReserva("Reserva",plaza6);
+        seleccionVentanaSegunReserva(plaza6);
     }
 
     @FXML
     void OnClickPlaza7(ActionEvent event) throws IOException {
-        abrirVentanaReserva("Reserva",plaza7);
+        seleccionVentanaSegunReserva(plaza7);
     }
 
     @FXML
     void OnClickPlaza8(ActionEvent event) throws IOException {
-        abrirVentanaReserva("Reserva",plaza8);
+        seleccionVentanaSegunReserva(plaza8);
     }
 
     @FXML
     void OnClickPlaza9(ActionEvent event) throws IOException {
-        abrirVentanaReserva("Reserva",plaza9);
+        seleccionVentanaSegunReserva(plaza9);
     }
 
     @FXML
     void OnClickPlaza10(ActionEvent event) throws IOException {
-        abrirVentanaReserva("Reserva",plaza10);
+        seleccionVentanaSegunReserva(plaza10);
     }
 
     @FXML
     void OnClickPlaza11(ActionEvent event) throws IOException {
-        abrirVentanaReserva("Reserva",plaza11);
+        seleccionVentanaSegunReserva(plaza11);
     }
 
     @FXML
     void OnClickPlaza12(ActionEvent event) throws IOException {
-        abrirVentanaReserva("Reserva",plaza12);
+        seleccionVentanaSegunReserva(plaza12);
     }
 
 
@@ -218,14 +218,12 @@ public class parkingController {
         }
 
         if(numeroPlazas==12){
-            String ruta = "/imagenes/fondoRojo.png";
-            Image fondoRojo = new Image(Objects.requireNonNull(getClass().getResource(ruta)).toString());
+            Image fondoRojo = new Image(Objects.requireNonNull(getClass().getResource(Rutas.IMAGENROJA)).toString());
 
             imagenColorParking.setImage(fondoRojo);
         }else{
 
-            String ruta = "/imagenes/fondoVerde.png";
-            Image fondoVerde = new Image(Objects.requireNonNull(getClass().getResource(ruta)).toString());
+            Image fondoVerde = new Image(Objects.requireNonNull(getClass().getResource(Rutas.IMAGENVERDE)).toString());
 
             imagenColorParking.setImage(fondoVerde);
         }
@@ -250,6 +248,8 @@ public class parkingController {
                 controller.setMatriculaCoche(matricula);
                 controller.setFechaE(datos.getFechaEntrada());
                 controller.setFechaS(datos.getFechaSalida());
+                controller.setPlazaSeleccionada(resultado.getIdPlaza());
+                System.out.println("ID PLAZA:"+ resultado.getIdPlaza());
             }else{
                 System.out.println("El resultado de devolver Reserva es nulo");
             }
@@ -257,6 +257,7 @@ public class parkingController {
         }else{
             System.out.println("El resultado de devolver plaza es nulo");
         }
+
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
@@ -314,10 +315,8 @@ public class parkingController {
     }
 
     private void actualizarEstadoPlazas() {
-        String rutaCoche = "/imagenes/coche.jpg";
-        String rutaReservada = "/imagenes/reservada.jpg";
-        Image coche = new Image(Objects.requireNonNull(getClass().getResource(rutaCoche)).toString());
-        Image reservada = new Image(Objects.requireNonNull(getClass().getResource(rutaReservada)).toString());
+        Image coche = new Image(Objects.requireNonNull(getClass().getResource(Rutas.IMAGENCOCHE)).toString());
+        Image reservada = new Image(Objects.requireNonNull(getClass().getResource(Rutas.IMAGENRESERVA)).toString());
         ObservableList<Plaza> plazas = PlazaDao.listarTodasLasPlazas();
         System.out.println("Ocupadas: " + PlazaDao.contarPlazasOcupadasYReservadas());
         for (Plaza plaza : plazas) {
@@ -369,10 +368,8 @@ public class parkingController {
         }
     }
     public void inicializaImagenesTipoPlaza(){
-        String rutaTipoVip = "/imagenes/imagenvip.jpg";
-        String rutaTipoElectrica = "/imagenes/electrica.png";
-        Image vip = new Image(Objects.requireNonNull(getClass().getResource(rutaTipoVip)).toString());
-        Image electrica = new Image(Objects.requireNonNull(getClass().getResource(rutaTipoElectrica)).toString());
+        Image vip = new Image(Objects.requireNonNull(getClass().getResource(Rutas.IMAGENVIP)).toString());
+        Image electrica = new Image(Objects.requireNonNull(getClass().getResource(Rutas.IMAGENELECTRICA)).toString());
         ObservableList<Plaza> plazas = PlazaDao.listarTodasLasPlazas();
 
         for (Plaza plaza : plazas) {

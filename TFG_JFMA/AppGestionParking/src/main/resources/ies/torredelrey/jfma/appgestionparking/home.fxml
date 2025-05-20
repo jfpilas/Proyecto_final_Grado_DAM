@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="541.0" prefWidth="616.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ies.torredelrey.jfma.appgestionparking.controlador.menuController">
+   <MenuBar layoutY="1.0" prefHeight="42.0" prefWidth="622.0">
+     <menus>
+       <Menu mnemonicParsing="false" text="App">
+         <items>
+               <MenuItem fx:id="mniCliente" mnemonicParsing="false" onAction="#OnClickCliente" text="Gestionar Cliente" />
+               <MenuItem fx:id="mniCoche" mnemonicParsing="false" onAction="#OnClickCoche" text="Gestionar Coche" />
+               <MenuItem fx:id="mniUsuario" mnemonicParsing="false" onAction="#onClickUsuario" text="Gestionar Usuario" />
+               <MenuItem fx:id="mniCambiaRol" mnemonicParsing="false" onAction="#onClickCambiaRol" text="Cambiar Rol" />
+               <MenuItem fx:id="mniParking" mnemonicParsing="false" onAction="#onClickParking" text="Parking" />
+               <MenuItem fx:id="mniFactura" mnemonicParsing="false" onAction="#onClickFactura" text="Factura" />
+               <MenuItem fx:id="mniPagos" mnemonicParsing="false" onAction="#OnClickPagos" text="Pagos" />
+               <MenuItem fx:id="mniSalir" mnemonicParsing="false" onAction="#OnClickSalir" text="Salir" />
+         </items>
+       </Menu>
+     </menus>
+   </MenuBar>
+   <ImageView fx:id="imgAlcazar" fitHeight="451.0" fitWidth="622.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+         <Image url="@../../../../imagenes/home.jpg" />
+      </image>
+   </ImageView>
+
+</AnchorPane>

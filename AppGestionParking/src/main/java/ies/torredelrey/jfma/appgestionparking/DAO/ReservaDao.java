@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 
 public class ReservaDao {
@@ -80,6 +81,39 @@ public class ReservaDao {
         return null;
     }
 
+    public static int verificacionPlazaReservadaPorMismoCoche(int id){
+
+        Connection con = Conexion.conectar();
+        if(Conexion.conectar() != null){
+
+            //Hago la consulta
+            String consulta = "SELECT COUNT(*) FROM reserva WHERE ID_Coche = ? AND Estado = 'Activa' ";
+
+            try (PreparedStatement reserva = con.prepareStatement(consulta)) {
+
+                // paso los parametros a la consulta que hize arriba
+                reserva.setInt(1, id);
+
+
+
+
+                //Guardo en resultado lo que me devuelve la base de datos
+
+                try (ResultSet resultado = reserva.executeQuery()) {
+                    if (resultado.next()) {
+                        return resultado.getInt(1);
+                    }
+                }
+            } catch (SQLException e) {
+
+                System.out.println("Error " + e.getMessage());
+
+            }
+        }
+
+        return 0;
+    }
+
     public static HashMap<String, Integer> obtenerIdClienteYCoche(String dni, String matricula) {
         Connection con = Conexion.conectar();
 
@@ -105,18 +139,6 @@ public class ReservaDao {
         return null;
     }
 
-    public static ObservableList<Reserva> obtenerReservasPorIdCliente(int idCliente) {
-        ObservableList<Reserva> reservasCliente = FXCollections.observableArrayList();
-        ObservableList<Reserva> todasReservas = listarReservas(); // método que ya tienes
-
-        for (Reserva r : todasReservas) {
-            if (r.getIdCliente() == idCliente) {
-                reservasCliente.add(r);
-            }
-        }
-        return reservasCliente;
-    }
-
     public static Reserva ObtenerReservaPorId(int id) {
 
         Connection con = Conexion.conectar();
@@ -134,7 +156,7 @@ public class ReservaDao {
                 ResultSet resultado = factura.executeQuery();
                 while (resultado.next()) {
                     reserva = new Reserva(
-                            resultado.getInt("ID_Plaza"),
+                            resultado.getInt("ID_Reserva"),
                             resultado.getInt("ID_Cliente"),
                             resultado.getInt("ID_Coche"),
                             resultado.getInt("ID_Plaza"),
@@ -152,6 +174,43 @@ public class ReservaDao {
 
         return reserva;
     }
+
+    public static Reserva obtenerReservaPorIdPlaza(int id) {
+
+        Connection con = Conexion.conectar();
+        Reserva reservaN = null;
+        if (Conexion.conectar() != null) {
+
+            //Hago la consulta
+            String consulta = "SELECT * FROM reserva where ID_Plaza = ? ";
+
+            try (PreparedStatement reserva = con.prepareStatement(consulta)) {
+                reserva.setInt(1,id);
+
+                //Guardo en resultado lo que me devuelve la base de datos
+
+                ResultSet resultado = reserva.executeQuery();
+                while (resultado.next()) {
+                    reservaN = new Reserva(
+                            resultado.getInt("ID_Reserva"),
+                            resultado.getInt("ID_Cliente"),
+                            resultado.getInt("ID_Coche"),
+                            resultado.getInt("ID_Plaza"),
+                            resultado.getTimestamp("Fecha_Entrada").toLocalDateTime(),
+                            resultado.getTimestamp("Fecha_Salida").toLocalDateTime(),
+                            resultado.getString("Estado"));
+
+                }
+            } catch (SQLException e) {
+
+                System.out.println("Error " + e.getMessage());
+
+            }
+        }
+
+        return reservaN;
+    }
+
 
     public static ObservableList<Reserva> listarReservas() {
 
@@ -208,6 +267,41 @@ public class ReservaDao {
         }
 
         return false;
+    }
+
+    public static boolean cocheYaReservadoEnFecha(int idCoche, LocalDateTime entrada, LocalDateTime salida) {
+        Connection con = Conexion.conectar();
+        boolean reservado = false;
+
+        String sql = "SELECT COUNT(*) FROM reserva " +
+                "WHERE id_coche = ? " +
+                "AND estado != 'Finalizada'"+
+                "AND estado != 'Cancelada'"+
+                "AND (" +
+                "      (? BETWEEN fecha_entrada AND fecha_salida) OR " +
+                "      (? BETWEEN fecha_entrada AND fecha_salida) OR " +
+                "      (fecha_entrada BETWEEN ? AND ?) OR " +
+                "      (fecha_salida BETWEEN ? AND ?)" +
+                ")";
+
+        try (PreparedStatement stmt = con.prepareStatement(sql)) {
+            stmt.setInt(1, idCoche);
+            stmt.setTimestamp(2, Timestamp.valueOf(entrada));
+            stmt.setTimestamp(3, Timestamp.valueOf(salida));
+            stmt.setTimestamp(4, Timestamp.valueOf(entrada));
+            stmt.setTimestamp(5, Timestamp.valueOf(salida));
+            stmt.setTimestamp(6, Timestamp.valueOf(entrada));
+            stmt.setTimestamp(7, Timestamp.valueOf(salida));
+
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                reservado = rs.getInt(1) > 0;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return reservado;
     }
 
 }

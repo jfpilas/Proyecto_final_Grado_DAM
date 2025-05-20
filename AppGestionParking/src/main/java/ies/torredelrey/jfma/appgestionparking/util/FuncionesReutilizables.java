@@ -56,6 +56,20 @@ public class FuncionesReutilizables {
         }
     }
 
+    public static boolean mostrarAlertaConfirmacionCancelar(String titulo, String mensaje) throws IOException {
+        Alert confirmacion = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmacion.setTitle(titulo);
+        confirmacion.setContentText(mensaje);
+
+        ButtonType btnSi = new ButtonType("Sí");
+        ButtonType btnNo = new ButtonType("No");
+
+        confirmacion.getButtonTypes().setAll(btnSi, btnNo);
+
+        Optional<ButtonType> resultado = confirmacion.showAndWait();
+        return resultado.isPresent() && resultado.get() == btnSi;
+    }
+
     public static void ajustarImagenes(String ruta, ImageView img,int anchura,int altura){
 
         Image imagen = new Image(Objects.requireNonNull(FuncionesReutilizables.class.getResource(ruta)).toString());

@@ -18,6 +18,7 @@ import java.util.Optional;
 
 public class menuController {
 
+
     @FXML
     private ImageView imgAlcazar;
 
@@ -52,6 +53,8 @@ public class menuController {
         FXMLLoader loader = new FXMLLoader(GestorParking.class.getResource(Rutas.ADDCLIENTES));
         AnchorPane root = loader.load();
         clienteController controller= loader.getController();
+        controller.setImagenAddCliente(Rutas.IMAGENAGREGARCLIENTE);
+        controller.setImagenBuscar(Rutas.IMAGENBUSCAR);
         controller.setImagenModificar(Rutas.IMAGENMODIFICAR);
         controller.setImagenEliminar(Rutas.IMAGENELIMINAR);
         controller.setImagenGuardar(Rutas.IMAGENGUARDAR);
@@ -88,6 +91,7 @@ public class menuController {
         FXMLLoader loader = new FXMLLoader(GestorParking.class.getResource(Rutas.PAGOS));
         AnchorPane root = loader.load(); // Esto inicializa todos los @FXML
         pagosController controller = loader.getController();
+        controller.setImgBuscar(Rutas.IMAGENBUSCAR);
         controller.configurarSeleccionTabla();
         Pane panel = controller.devuelvePanelPago();
         panel.setVisible(false);
@@ -129,11 +133,15 @@ public class menuController {
         FuncionesReutilizables.mostrarAlertaConfirmacionSalir("Confirmación de salida","¿Estás seguro que deseas salir de la aplicación?",null);
     }
 
-
     @FXML
     void onClickUsuario(ActionEvent event) throws IOException {
-        AnchorPane panel = FXMLLoader.load(GestorParking.class.getResource(Rutas.ADDUSUARIOS));
-        Scene nuevaEscena = new Scene(panel);
+        FXMLLoader loader = new FXMLLoader(GestorParking.class.getResource(Rutas.ADDUSUARIOS));
+        AnchorPane root = loader.load();
+        usuarioController controller = loader.getController();
+        controller.setImgUsuario(Rutas.IMAGENADDUSUARIO);
+        controller.setImgGuardar(Rutas.IMAGENGUARDAR);
+        controller.setImgCancelar(Rutas.IMAGENCANCELAR);
+        Scene nuevaEscena = new Scene(root);
 
         Stage stage = new Stage();
         stage.setTitle("Añadir Nuevo Usuario");
@@ -150,11 +158,12 @@ public class menuController {
 
     }
 
-
     @FXML
     void OnClickCoche(ActionEvent event) throws IOException {
     FXMLLoader loader = new FXMLLoader(GestorParking.class.getResource(Rutas.ADDCCOCHES));
     AnchorPane panel = loader.load();
+    cocheController controller = loader.getController();
+    controller.setImagenGuardar(Rutas.IMAGENGUARDAR);
 
     Scene escena = new Scene(panel);
     Stage stage = new Stage();
@@ -190,5 +199,6 @@ public class menuController {
     public void  setMniUsuario(boolean visibilidad){
         mniUsuario.setVisible(visibilidad);
     }
+
 
 }
