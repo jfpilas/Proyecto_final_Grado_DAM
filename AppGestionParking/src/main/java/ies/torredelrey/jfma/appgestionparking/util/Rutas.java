@@ -32,6 +32,7 @@ public class Rutas {
     public static String IMAGENCLIENTES = "/imagenes/audiencia.png";
     public static String IMAGENROJA = "/imagenes/fondoRojo.png";
     public static String IMAGENVERDE = "/imagenes/fondoVerde.png";
+    public static String IMAGENREGISTROCOCHE = "/imagenes/registro.png";
 
 
 }

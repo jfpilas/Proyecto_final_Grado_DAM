@@ -58,6 +58,9 @@ public class cocheController {
     private ImageView imgGuardar;
 
     @FXML
+    private ImageView imgRegistroCoche;
+
+    @FXML
     void OnClickGuardar(ActionEvent event) {
         String dni = txtDnic.getText();
         String matricula = txtMatriculac.getText();
@@ -168,6 +171,9 @@ public class cocheController {
 
     public void setImagenGuardar(String ruta){
         FuncionesReutilizables.ajustarImagenes(ruta,imgGuardar, TamanoImagenes.ANCHURAIMAGENBOTONES,TamanoImagenes.ALTURAIMAGENBOTONES);
+    }
+    public void setImgRegistroCoche(String ruta){
+        FuncionesReutilizables.ajustarImagenes(ruta,imgRegistroCoche, TamanoImagenes.ANCHURAIMAGENGRANDEUSUARIO,TamanoImagenes.ALTURAIMAGENGRANDEUSUARIO);
     }
 
 }

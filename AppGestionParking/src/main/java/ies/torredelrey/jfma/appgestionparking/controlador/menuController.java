@@ -164,6 +164,7 @@ public class menuController {
     AnchorPane panel = loader.load();
     cocheController controller = loader.getController();
     controller.setImagenGuardar(Rutas.IMAGENGUARDAR);
+    controller.setImgRegistroCoche(Rutas.IMAGENREGISTROCOCHE);
 
     Scene escena = new Scene(panel);
     Stage stage = new Stage();

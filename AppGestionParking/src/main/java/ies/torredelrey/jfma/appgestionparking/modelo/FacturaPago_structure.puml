@@ -1,0 +1,184 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "ies.torredelrey.jfma.appgestionparking.modelo.FacturaPago",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_997493509 { 
+   	label=torredelrey
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_166495513 { 
+   	label=jfma
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   FacturaPago933587682[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)FacturaPago</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   Reserva: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   cliente: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   estado: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   fecha: LocalDateTime [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   idfactura: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   matricula: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   total: float [1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+pagosController2118646055[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)pagosController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   cbxEstado: ComboBox&lt;String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   cbxMetodoPago: ComboBox&lt;String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colCliente: TableColumn&lt;FacturaPago, String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colEstado: TableColumn&lt;FacturaPago, String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colFecha: TableColumn&lt;FacturaPago, Date&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colIdFactura: TableColumn&lt;FacturaPago, Integer&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colMatricula: TableColumn&lt;FacturaPago, String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colReserva: TableColumn&lt;FacturaPago, String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colTotal: TableColumn&lt;FacturaPago, Float&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   idPlaza: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   idreserva: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   imgBuscar: ImageView [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   listaFacturaPago: ObservableList&lt;FacturaPago&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   listaMetodosPago: ObservableList&lt;String&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   listaModosEstado: ObservableList&lt;String&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   matricula: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   panelPagarFactura: Pane [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   posicionFacturaPagoTabla: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   tFacturas: TableView&lt;FacturaPago&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   txtFecha: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   txtIdFactura: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   txtTotal: TextField [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >- OnClickImprimir()</TD></TR>
+<TR><TD ALIGN="LEFT" ># OnClickPagar(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ actualizarTabla()</TD></TR>
+<TR><TD ALIGN="LEFT" ># configurarSeleccionTabla()</TD></TR>
+<TR><TD ALIGN="LEFT" ># devuelvePanelPago(): Pane</TD></TR>
+<TR><TD ALIGN="LEFT" >+ enviarEmail(idFactura: int)</TD></TR>
+<TR><TD ALIGN="LEFT" >+ limpiarCampos()</TD></TR>
+<TR><TD ALIGN="LEFT" ># listaMetodosPago()</TD></TR>
+<TR><TD ALIGN="LEFT" ># listarModosEstado()</TD></TR>
+<TR><TD ALIGN="LEFT" >- mostrarFacturaSeleccionada(facturaPago: FacturaPago)</TD></TR>
+<TR><TD ALIGN="LEFT" ># onClickBuscar(event: ActionEvent)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+pagosController2118646055 -> FacturaPago933587682[label="colCliente
+[0..1]"];
+pagosController2118646055 -> FacturaPago933587682[label="colEstado
+[0..1]"];
+pagosController2118646055 -> FacturaPago933587682[label="colFecha
+[0..1]"];
+pagosController2118646055 -> FacturaPago933587682[label="colIdFactura
+[0..1]"];
+pagosController2118646055 -> FacturaPago933587682[label="colMatricula
+[0..1]"];
+pagosController2118646055 -> FacturaPago933587682[label="colReserva
+[0..1]"];
+pagosController2118646055 -> FacturaPago933587682[label="colTotal
+[0..1]"];
+pagosController2118646055 -> FacturaPago933587682[label="listaFacturaPago
+[0..*]"];
+pagosController2118646055 -> FacturaPago933587682[label="tFacturas
+[0..1]"];
+    
+}
+@enduml

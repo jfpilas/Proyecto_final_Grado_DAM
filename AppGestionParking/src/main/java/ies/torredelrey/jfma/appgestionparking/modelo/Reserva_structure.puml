@@ -1,0 +1,194 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "ies.torredelrey.jfma.appgestionparking.modelo.Reserva",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_997493509 { 
+   	label=torredelrey
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_166495513 { 
+   	label=jfma
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   Reserva933587682[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Reserva</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   estado: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   fechaEntrada: LocalDateTime [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   fechaSalida: LocalDateTime [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   idCliente: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   idCoche: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   idPlaza: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   idReserva: int [1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ReservaCliente933587682[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ReservaCliente</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   cliente: Cliente [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   coche: Coche [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   reserva: Reserva [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+facturaController2118646055[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)facturaController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   btnBuscar: Button [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   btnGuardar: Button [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   btnRefrescar: Button [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   cbxPago: ComboBox&lt;String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   clienteEncontrado: ObservableList&lt;ReservaCliente&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   clientesReserva: ObservableList&lt;ReservaCliente&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colApellidos: TableColumn&lt;ReservaCliente, String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colEmail: TableColumn&lt;ReservaCliente, String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colIdCoche: TableColumn&lt;ReservaCliente, String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colIdReserva: TableColumn&lt;ReservaCliente, Integer&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colNombre: TableColumn&lt;ReservaCliente, String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   idclienteSeleccionado: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   imgBuscar: ImageView [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   imgGuardar: ImageView [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   imgRefrescar: ImageView [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   listaModosPago: ObservableList&lt;String&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   tClientes: TableView&lt;ReservaCliente&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   txtBuscar: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   txtCliente: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   txtEstado: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   txtFechaEmision: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   txtNumReserva: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   txtTotal: TextField [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># OnClickGuardar(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" ># configurarSeleccionTabla()</TD></TR>
+<TR><TD ALIGN="LEFT" >- listarModosDePago()</TD></TR>
+<TR><TD ALIGN="LEFT" >- mostrarFacturaSeleccionada(reservacliente: ReservaCliente)</TD></TR>
+<TR><TD ALIGN="LEFT" ># onClickBuscar(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" ># onClickResfrescar(event: ActionEvent)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+ReservaCliente933587682 -> Reserva933587682[label="reserva
+[0..1]"];
+facturaController2118646055 -> ReservaCliente933587682[label="clienteEncontrado
+[0..*]"];
+facturaController2118646055 -> ReservaCliente933587682[label="clientesReserva
+[0..*]"];
+facturaController2118646055 -> ReservaCliente933587682[label="colApellidos
+[0..1]"];
+facturaController2118646055 -> ReservaCliente933587682[label="colEmail
+[0..1]"];
+facturaController2118646055 -> ReservaCliente933587682[label="colIdCoche
+[0..1]"];
+facturaController2118646055 -> ReservaCliente933587682[label="colIdReserva
+[0..1]"];
+facturaController2118646055 -> ReservaCliente933587682[label="colNombre
+[0..1]"];
+facturaController2118646055 -> ReservaCliente933587682[label="tClientes
+[0..1]"];
+    
+}
+@enduml

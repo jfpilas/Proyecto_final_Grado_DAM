@@ -14,21 +14,22 @@
             <Font name="System Bold Italic" size="30.0" />
          </font>
       </Label>
-      <Label layoutX="247.0" layoutY="97.0" text="DNI Cliente:" />
-      <TextField fx:id="txtDnic" layoutX="211.0" layoutY="127.0" />
-      <Label layoutX="253.0" layoutY="176.0" text="Matrícula:" />
-      <Label layoutX="253.0" layoutY="232.0" text="Marca:" />
-      <Label layoutX="257.0" layoutY="291.0" text="Modelo:" />
-      <Label layoutX="260.0" layoutY="368.0" text="Color:" />
-      <Label layoutX="265.0" layoutY="434.0" prefHeight="18.0" prefWidth="26.0" text="Tipo:" />
-      <TextField fx:id="txtMatriculac" layoutX="212.0" layoutY="194.0" />
-      <TextField fx:id="txtMarcac" layoutX="213.0" layoutY="256.0" />
-      <TextField fx:id="txtModeloc" layoutX="212.0" layoutY="320.0" />
-      <TextField fx:id="txtColorc" layoutX="212.0" layoutY="386.0" />
-      <TextField fx:id="txtTipoc" layoutX="214.0" layoutY="466.0" />
-      <Button fx:id="btnGuardar" layoutX="263.0" layoutY="522.0" mnemonicParsing="false" onAction="#OnClickGuardar" text="Guardar">
+      <Label layoutX="139.0" layoutY="94.0" text="DNI Cliente:" />
+      <TextField fx:id="txtDnic" layoutX="103.0" layoutY="124.0" />
+      <Label layoutX="145.0" layoutY="173.0" text="Matrícula:" />
+      <Label layoutX="145.0" layoutY="229.0" text="Marca:" />
+      <Label layoutX="149.0" layoutY="288.0" text="Modelo:" />
+      <Label layoutX="152.0" layoutY="365.0" text="Color:" />
+      <Label layoutX="157.0" layoutY="431.0" prefHeight="18.0" prefWidth="26.0" text="Tipo:" />
+      <TextField fx:id="txtMatriculac" layoutX="104.0" layoutY="191.0" />
+      <TextField fx:id="txtMarcac" layoutX="105.0" layoutY="253.0" />
+      <TextField fx:id="txtModeloc" layoutX="104.0" layoutY="317.0" />
+      <TextField fx:id="txtColorc" layoutX="103.0" layoutY="383.0" />
+      <TextField fx:id="txtTipoc" layoutX="106.0" layoutY="463.0" />
+      <Button fx:id="btnGuardar" layoutX="155.0" layoutY="519.0" mnemonicParsing="false" onAction="#OnClickGuardar" text="Guardar">
          <graphic>
             <ImageView fx:id="imgGuardar" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
          </graphic></Button>
+      <ImageView fx:id="imgRegistroCoche" fitHeight="150.0" fitWidth="200.0" layoutX="333.0" layoutY="204.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

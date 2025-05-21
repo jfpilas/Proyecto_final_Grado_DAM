@@ -1,0 +1,260 @@
+@startuml
+
+/' diagram meta data start
+config=StructureConfiguration;
+{
+  "projectClassification": {
+    "searchMode": "OpenProject", // OpenProject, AllProjects
+    "includedProjects": "",
+    "pathEndKeywords": "*.impl",
+    "isClientPath": "",
+    "isClientName": "",
+    "isTestPath": "",
+    "isTestName": "",
+    "isMappingPath": "",
+    "isMappingName": "",
+    "isDataAccessPath": "",
+    "isDataAccessName": "",
+    "isDataStructurePath": "",
+    "isDataStructureName": "",
+    "isInterfaceStructuresPath": "",
+    "isInterfaceStructuresName": "",
+    "isEntryPointPath": "",
+    "isEntryPointName": "",
+    "treatFinalFieldsAsMandatory": false
+  },
+  "graphRestriction": {
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "removeByInheritance": "", // inheritance/annotation based filtering is done in a second step
+    "removeByAnnotation": "",
+    "removeByClassPackage": "", // cleanup the graph after inheritance/annotation based filtering is done
+    "removeByClassName": "",
+    "cutMappings": false,
+    "cutEnum": true,
+    "cutTests": true,
+    "cutClient": true,
+    "cutDataAccess": false,
+    "cutInterfaceStructures": false,
+    "cutDataStructures": false,
+    "cutGetterAndSetter": true,
+    "cutConstructors": true
+  },
+  "graphTraversal": {
+    "forwardDepth": 6,
+    "backwardDepth": 6,
+    "classPackageExcludeFilter": "",
+    "classPackageIncludeFilter": "",
+    "classNameExcludeFilter": "",
+    "classNameIncludeFilter": "",
+    "methodNameExcludeFilter": "",
+    "methodNameIncludeFilter": "",
+    "hideMappings": false,
+    "hideDataStructures": false,
+    "hidePrivateMethods": true,
+    "hideInterfaceCalls": true, // indirection: implementation -> interface (is hidden) -> implementation
+    "onlyShowApplicationEntryPoints": false, // root node is included
+    "useMethodCallsForStructureDiagram": "ForwardOnly" // ForwardOnly, BothDirections, No
+  },
+  "details": {
+    "aggregation": "GroupByClass", // ByClass, GroupByClass, None
+    "showClassGenericTypes": true,
+    "showMethods": true,
+    "showMethodParameterNames": true,
+    "showMethodParameterTypes": true,
+    "showMethodReturnType": true,
+    "showPackageLevels": 2,
+    "showDetailedClassStructure": true
+  },
+  "rootClass": "ies.torredelrey.jfma.appgestionparking.modelo.Coche",
+  "extensionCallbackMethod": "" // qualified.class.name#methodName - signature: public static String method(String)
+}
+diagram meta data end '/
+
+
+
+digraph g {
+    rankdir="TB"
+    splines=polyline
+    
+
+'nodes 
+subgraph cluster_997493509 { 
+   	label=torredelrey
+	labeljust=l
+	fillcolor="#ececec"
+	style=filled
+   
+   subgraph cluster_166495513 { 
+   	label=jfma
+	labeljust=l
+	fillcolor="#d8d8d8"
+	style=filled
+   
+   Coche933587682[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)Coche</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   Color: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Marca: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Modelo: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   Tipo: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   idCliente: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   idCoche: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   matricula: String [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+ReservaCliente933587682[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)ReservaCliente</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >+   cliente: Cliente [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   coche: Coche [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >+   reserva: Reserva [0..1]</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+clienteController2118646055[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)clienteController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   btnCancelarClientes: Button [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   cbxBuscar: ComboBox&lt;String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colColor: TableColumn&lt;Coche, String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colID: TableColumn&lt;Coche, Integer&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colMarca: TableColumn&lt;Coche, String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colMatricula: TableColumn&lt;Coche, String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colModelo: TableColumn&lt;Coche, String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colTipo: TableColumn&lt;Coche, String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   color: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   dpFechaNacCliente: DatePicker [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   imgAddCliente: ImageView [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   imgBuscar: ImageView [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   imgCancelar: ImageView [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   imgEliminar: ImageView [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   imgGuardar: ImageView [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   imgModificar: ImageView [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   listaCoches: ObservableList&lt;Coche&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   marca: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   matricula: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   modelo: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   modoBusqueda: ObservableList&lt;String&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   posicionCocheTabla: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   tblCoche: TableView&lt;Coche&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   tipo: String [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   txtApellidosCliente: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   txtDireccionCliente: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   txtDniBuscar: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   txtDniCliente: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   txtEmailCliente: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   txtNombreCliente: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   txtTelefonoCliente: TextField [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># OnClickEliminar(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" ># OnClickModificar(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" ># cancelarClientes(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" ># guardaClientes(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" >- limpiarCampos()</TD></TR>
+<TR><TD ALIGN="LEFT" >- listarModosDeBusqueda()</TD></TR>
+<TR><TD ALIGN="LEFT" ># onClickBuscar(event: ActionEvent)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+
+facturaController2118646055[
+	label=<<TABLE BORDER="1" CELLBORDER="0" CELLPADDING="4" CELLSPACING="0">
+<TR><TD ALIGN="LEFT" >(C)facturaController</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" >-   btnBuscar: Button [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   btnGuardar: Button [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   btnRefrescar: Button [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   cbxPago: ComboBox&lt;String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   clienteEncontrado: ObservableList&lt;ReservaCliente&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   clientesReserva: ObservableList&lt;ReservaCliente&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colApellidos: TableColumn&lt;ReservaCliente, String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colEmail: TableColumn&lt;ReservaCliente, String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colIdCoche: TableColumn&lt;ReservaCliente, String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colIdReserva: TableColumn&lt;ReservaCliente, Integer&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   colNombre: TableColumn&lt;ReservaCliente, String&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   idclienteSeleccionado: int [1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   imgBuscar: ImageView [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   imgGuardar: ImageView [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   imgRefrescar: ImageView [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >#   listaModosPago: ObservableList&lt;String&gt; [0..*]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   tClientes: TableView&lt;ReservaCliente&gt; [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   txtBuscar: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   txtCliente: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   txtEstado: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   txtFechaEmision: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   txtNumReserva: TextField [0..1]</TD></TR>
+<TR><TD ALIGN="LEFT" >-   txtTotal: TextField [0..1]</TD></TR>
+<HR/>
+<TR><TD ALIGN="LEFT" ># OnClickGuardar(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" ># configurarSeleccionTabla()</TD></TR>
+<TR><TD ALIGN="LEFT" >- listarModosDePago()</TD></TR>
+<TR><TD ALIGN="LEFT" >- mostrarFacturaSeleccionada(reservacliente: ReservaCliente)</TD></TR>
+<TR><TD ALIGN="LEFT" ># onClickBuscar(event: ActionEvent)</TD></TR>
+<TR><TD ALIGN="LEFT" ># onClickResfrescar(event: ActionEvent)</TD></TR>
+</TABLE>>
+	style=filled
+	margin=0
+	shape=plaintext
+	fillcolor="#FFFFFF"
+];
+} 
+} 
+
+'edges    
+ReservaCliente933587682 -> Coche933587682[label="coche
+[0..1]"];
+clienteController2118646055 -> Coche933587682[label="colColor
+[0..1]"];
+clienteController2118646055 -> Coche933587682[label="colID
+[0..1]"];
+clienteController2118646055 -> Coche933587682[label="colMarca
+[0..1]"];
+clienteController2118646055 -> Coche933587682[label="colMatricula
+[0..1]"];
+clienteController2118646055 -> Coche933587682[label="colModelo
+[0..1]"];
+clienteController2118646055 -> Coche933587682[label="colTipo
+[0..1]"];
+clienteController2118646055 -> Coche933587682[label="listaCoches
+[0..*]"];
+clienteController2118646055 -> Coche933587682[label="tblCoche
+[0..1]"];
+facturaController2118646055 -> ReservaCliente933587682[label="clienteEncontrado
+[0..*]"];
+facturaController2118646055 -> ReservaCliente933587682[label="clientesReserva
+[0..*]"];
+facturaController2118646055 -> ReservaCliente933587682[label="colApellidos
+[0..1]"];
+facturaController2118646055 -> ReservaCliente933587682[label="colEmail
+[0..1]"];
+facturaController2118646055 -> ReservaCliente933587682[label="colIdCoche
+[0..1]"];
+facturaController2118646055 -> ReservaCliente933587682[label="colIdReserva
+[0..1]"];
+facturaController2118646055 -> ReservaCliente933587682[label="colNombre
+[0..1]"];
+facturaController2118646055 -> ReservaCliente933587682[label="tClientes
+[0..1]"];
+    
+}
+@enduml
