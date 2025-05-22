@@ -7,12 +7,18 @@ import ies.torredelrey.jfma.appgestionparking.modelo.Coche;
 import ies.torredelrey.jfma.appgestionparking.util.FuncionesReutilizables;
 import ies.torredelrey.jfma.appgestionparking.util.TamanoImagenes;
 import ies.torredelrey.jfma.appgestionparking.util.Validaciones;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
+
+import static ies.torredelrey.jfma.appgestionparking.vista.GestorParking.llenarCombo;
 
 public class cocheController {
     protected int idCocheSeleccionado;
@@ -52,13 +58,15 @@ public class cocheController {
     private TextField txtModeloc;
 
     @FXML
-    private TextField txtTipoc;
+    private ComboBox<String> cbxTipo;
 
     @FXML
     private ImageView imgGuardar;
 
     @FXML
     private ImageView imgRegistroCoche;
+
+    private final ObservableList<String> comboTipos = FXCollections.observableArrayList("Normal","VIP","Carga eléctrica");
 
     @FXML
     void OnClickGuardar(ActionEvent event) {
@@ -67,7 +75,7 @@ public class cocheController {
         String marca = txtMarcac.getText();
         String color = txtColorc.getText();
         String modelo = txtModeloc.getText();
-        String tipo = txtTipoc.getText();
+        String tipo = cbxTipo.getValue();
 
 
         if(!Validaciones.validarDNI(dni)){
@@ -165,9 +173,15 @@ public class cocheController {
         txtMarcac.setText("");
         txtModeloc.setText("");
         txtColorc.setText("");
-        txtTipoc.setText("");
+        cbxTipo.setValue("");
         txtDnic.setText("");
     }
+
+    @FXML
+    private void listarTipos(Event event) {
+        llenarCombo(cbxTipo,comboTipos);
+    }
+
 
     public void setImagenGuardar(String ruta){
         FuncionesReutilizables.ajustarImagenes(ruta,imgGuardar, TamanoImagenes.ANCHURAIMAGENBOTONES,TamanoImagenes.ALTURAIMAGENBOTONES);

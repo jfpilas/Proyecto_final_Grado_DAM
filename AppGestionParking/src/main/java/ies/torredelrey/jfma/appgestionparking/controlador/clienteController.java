@@ -322,6 +322,7 @@ public class clienteController {
         Scene scene = new Scene(root);
         stage.setTitle("Modificar");
         stage.setScene(scene);
+        FuncionesReutilizables.cambiarIconoVentana(Rutas.IMAGENMODIFICAR,stage);
         stage.show();
     }
 

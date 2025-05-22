@@ -4,6 +4,7 @@ import ies.torredelrey.jfma.appgestionparking.DAO.UsuarioDao;
 import ies.torredelrey.jfma.appgestionparking.modelo.Usuario;
 import ies.torredelrey.jfma.appgestionparking.util.FuncionesReutilizables;
 import ies.torredelrey.jfma.appgestionparking.util.Rutas;
+import ies.torredelrey.jfma.appgestionparking.vista.GestorParking;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,11 +13,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 public class loginController {
 
@@ -45,6 +48,7 @@ public class loginController {
 
     public void setStageSeleccionada(Stage stageRoles){
         this.stageSelecionada = stageRoles;
+
     }
 
     @FXML
@@ -113,7 +117,8 @@ public class loginController {
             // Obtener el escenario actual y cambiar la escena
             Stage stage = (Stage) btnLoginCancelar.getScene().getWindow();
             stage.setScene(new Scene(root));
-            stage.setTitle("Home");
+            stage.setTitle("Gestor de Parking");
+            FuncionesReutilizables.cambiarIconoVentana(Rutas.ICONOVENTANA,stage);
             stage.setOnCloseRequest(cerrar -> {
                 cerrar.consume();
 
@@ -147,7 +152,8 @@ public class loginController {
             Scene scene = new Scene(root);
             Stage stage = new Stage();
             stage.setScene(scene);
-            stage.setTitle("Home");
+            stage.setTitle("Gestor de Parking");
+            FuncionesReutilizables.cambiarIconoVentana(Rutas.ICONOVENTANA,stage);
             stage.setOnCloseRequest(cerrar -> {
                 cerrar.consume();
 

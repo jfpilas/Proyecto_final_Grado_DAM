@@ -63,6 +63,7 @@ public class menuController {
         Stage stage = new Stage();
         stage.setTitle("Añadir Cliente");
         stage.setScene(nuevaEscena);
+        FuncionesReutilizables.cambiarIconoVentana(Rutas.ICONOADDCLIENTE,stage);
         stage.show();
 
         System.out.println("Estoy entrando en Clientes");
@@ -82,6 +83,7 @@ public class menuController {
         Stage stage = new Stage();
         stage.setTitle("Facturas");
         stage.setScene(scene);
+        FuncionesReutilizables.cambiarIconoVentana(Rutas.ICONOFACTURA,stage);
         stage.show();
         System.out.println("Estoy entrando en Facturas");
     }
@@ -104,6 +106,7 @@ public class menuController {
         Stage stage = new Stage();
         stage.setTitle("Pagos");
         stage.setScene(scene);
+        FuncionesReutilizables.cambiarIconoVentana(Rutas.ICONOPAGOS,stage);
         stage.show();
         System.out.println("Estoy entrando en Pagos");
     }
@@ -119,12 +122,12 @@ public class menuController {
         Stage stage = new Stage();
         stage.setTitle("Parking");
         stage.setScene(scene);
+        FuncionesReutilizables.cambiarIconoVentana(Rutas.ICONOPARKING,stage);
         stage.show();
         stage.setOnCloseRequest(evento->{
             controller.detenerActualizacion();
             System.out.println("se ha parado el timer");
         });
-        System.out.println("Estoy entrando en parking");
     }
 
 
@@ -146,6 +149,7 @@ public class menuController {
         Stage stage = new Stage();
         stage.setTitle("Añadir Nuevo Usuario");
         stage.setScene(nuevaEscena);
+        FuncionesReutilizables.cambiarIconoVentana(Rutas.ICONOADDCLIENTE,stage);
         stage.show();
 
         System.out.println("Estoy entrando en Usuario");
@@ -154,7 +158,7 @@ public class menuController {
     @FXML
     void onClickCambiaRol(ActionEvent event) throws IOException {
         Stage stage = (Stage) imgAlcazar.getScene().getWindow();
-        FuncionesReutilizables.mostrarAlertaConfirmacionSalir("Confirmación de salida","¿Estás seguro de que quieres cambiar de rol?",stage);
+        FuncionesReutilizables.mostrarAlertaConfirmacionSalir("Cambio de rol","¿Estás seguro de que quieres cambiar de rol?",stage);
 
     }
 
@@ -170,6 +174,7 @@ public class menuController {
     Stage stage = new Stage();
     stage.setScene(escena);
     stage.setTitle("Añadir coche");
+    FuncionesReutilizables.cambiarIconoVentana(Rutas.ICONOVENTANACOCHE,stage);
     stage.show();
     }
 

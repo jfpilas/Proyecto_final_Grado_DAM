@@ -33,6 +33,17 @@ public class Rutas {
     public static String IMAGENROJA = "/imagenes/fondoRojo.png";
     public static String IMAGENVERDE = "/imagenes/fondoVerde.png";
     public static String IMAGENREGISTROCOCHE = "/imagenes/registro.png";
+    public static String ICONOVENTANA = "/imagenes/aparcamiento-de-coches.png";
+    public static String ICONOVENTANAINICIARSESION = "/imagenes/iniciar-sesion.png";
+    public static String ICONOVENTANASALIR = "/imagenes/salir.png";
+    public static String ICONOVENTANASALIRROL = "/imagenes/cambiarRol.png";
+    public static String ICONOERROR = "/imagenes/advertencia.png";
+    public static String ICONOEXITO = "/imagenes/cheque.png";
+    public static String ICONOFACTURA = "/imagenes/factura.png";
+    public static String ICONOADDCLIENTE = "/imagenes/cliente.png";
+    public static String ICONOPAGOS = "/imagenes/metodo-de-pago.png";
+    public static String ICONOPARKING = "/imagenes/parkingicono.png";
+    public static String ICONOVENTANACOCHE = "/imagenes/addcoche.png";
 
 
 }

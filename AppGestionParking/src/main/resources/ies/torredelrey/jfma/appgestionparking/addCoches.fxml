@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
@@ -25,11 +26,11 @@
       <TextField fx:id="txtMarcac" layoutX="105.0" layoutY="253.0" />
       <TextField fx:id="txtModeloc" layoutX="104.0" layoutY="317.0" />
       <TextField fx:id="txtColorc" layoutX="103.0" layoutY="383.0" />
-      <TextField fx:id="txtTipoc" layoutX="106.0" layoutY="463.0" />
       <Button fx:id="btnGuardar" layoutX="155.0" layoutY="519.0" mnemonicParsing="false" onAction="#OnClickGuardar" text="Guardar">
          <graphic>
             <ImageView fx:id="imgGuardar" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" />
          </graphic></Button>
       <ImageView fx:id="imgRegistroCoche" fitHeight="150.0" fitWidth="200.0" layoutX="333.0" layoutY="204.0" pickOnBounds="true" preserveRatio="true" />
+      <ComboBox fx:id="cbxTipo" layoutX="102.0" layoutY="465.0" onShowing="#listarTipos" prefWidth="150.0" />
    </children>
 </AnchorPane>

@@ -1,5 +1,6 @@
 package ies.torredelrey.jfma.appgestionparking.vista;
 import ies.torredelrey.jfma.appgestionparking.controlador.rolesController;
+import ies.torredelrey.jfma.appgestionparking.util.FuncionesReutilizables;
 import ies.torredelrey.jfma.appgestionparking.util.Rutas;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
@@ -8,8 +9,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
+
 
 
 public class GestorParking extends Application {
@@ -22,7 +23,9 @@ public class GestorParking extends Application {
         controller.setImagenRecepcionista(Rutas.IMAGENRECEPCIONISTA);
         controller.setImgClientes(Rutas.IMAGENCLIENTES);
         Scene scene = new Scene(root);
-        stage.setTitle("Gestor de Parking");
+        stage.setTitle("Selector de roles");
+        FuncionesReutilizables.cambiarIconoVentana(Rutas.ICONOVENTANA,stage);
+
         stage.setScene(scene);
         stage.show();
 
@@ -35,4 +38,6 @@ public class GestorParking extends Application {
     public static void main(String[] args) {
         launch();
     }
+
+
 }

@@ -4,17 +4,20 @@ package ies.torredelrey.jfma.appgestionparking.controlador;
 import ies.torredelrey.jfma.appgestionparking.util.FuncionesReutilizables;
 import ies.torredelrey.jfma.appgestionparking.util.Rutas;
 import ies.torredelrey.jfma.appgestionparking.util.TamanoImagenes;
+import ies.torredelrey.jfma.appgestionparking.vista.GestorParking;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 
 import java.io.IOException;
+import java.io.InputStream;
 
 public class rolesController {
 
@@ -75,6 +78,7 @@ public class rolesController {
             stage.setScene(scene);
             stage.setTitle("Iniciar Sesión");
             stage.setResizable(false);
+            FuncionesReutilizables.cambiarIconoVentana(Rutas.ICONOVENTANAINICIARSESION,stage);
             stage.setOnCloseRequest(cerrar -> {
                 cerrar.consume();
 
